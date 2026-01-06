@@ -3,110 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energy Optimization - Calculus & Matrix Algebra</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Energy Optimization | Calculus & Matrix Algebra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Reset and Base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --primary-pink: #ff5e8e;
+            --pink-light: #ffb6c1;
+            --pink-dark: #ff1493;
+            --white: #ffffff;
+            --off-white: #fff5f7;
+            --gray-light: #f8f9fa;
+            --gray: #6c757d;
+            --gray-dark: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --gradient-pink: linear-gradient(135deg, #ff5e8e 0%, #ff1493 100%);
+            --gradient-subtle: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
+            --shadow: 0 10px 30px rgba(255, 94, 142, 0.15);
+            --shadow-hover: 0 15px 40px rgba(255, 94, 142, 0.25);
+            --radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
-            color: #333;
+            font-family: 'Inter', sans-serif;
+            background: var(--off-white);
+            color: var(--gray-dark);
+            line-height: 1.6;
             min-height: 100vh;
             padding: 20px;
+            overflow-x: hidden;
         }
-        
+
+        /* Container */
         .presentation-container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
             overflow: hidden;
+            position: relative;
         }
-        
+
+        /* Header */
         .header {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: white;
+            background: var(--gradient-pink);
+            color: var(--white);
             padding: 40px 30px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
-        
+
         .header::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
             animation: float 20s linear infinite;
         }
-        
+
         @keyframes float {
             0% { transform: translate(0, 0) rotate(0deg); }
             100% { transform: translate(50px, 50px) rotate(360deg); }
         }
-        
+
         .header-content {
             position: relative;
             z-index: 2;
         }
-        
+
         .header h1 {
-            font-family: 'Roboto Slab', serif;
-            font-size: 2.8em;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
             margin-bottom: 10px;
             font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        
+
         .header h2 {
-            font-size: 1.4em;
-            font-weight: 300;
-            opacity: 0.9;
-            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 25px;
         }
-        
+
         .student-info {
             display: flex;
             justify-content: center;
             gap: 40px;
             margin-top: 25px;
-            font-size: 1.1em;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            display: inline-block;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 18px 30px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .info-item {
-            display: inline-block;
-            margin: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        
+
+        .info-item i {
+            font-size: 1.2rem;
+        }
+
+        /* Slides Wrapper */
         .slides-wrapper {
             padding: 40px;
-            min-height: 500px;
+            min-height: 550px;
             position: relative;
         }
-        
+
         .slide {
             display: none;
             animation: slideIn 0.5s ease-out;
-            min-height: 450px;
+            min-height: 500px;
         }
-        
+
         .slide.active {
             display: block;
         }
-        
+
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -117,633 +151,784 @@
                 transform: translateY(0);
             }
         }
-        
+
         .slide-number {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 20px;
-            background: #3498db;
-            color: white;
+            background: var(--gradient-pink);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            box-shadow: 0 6px 15px rgba(255, 94, 142, 0.3);
+            z-index: 10;
+        }
+
+        .slide-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-pink);
+            font-size: 2.3rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--pink-light);
+            position: relative;
+        }
+
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--gradient-pink);
+        }
+
+        .slide-content {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: var(--gray-dark);
+            padding-right: 20px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: var(--gradient-subtle);
+            padding: 30px;
+            border-radius: var(--radius);
+            margin: 30px 0;
+            border-left: 5px solid var(--primary-pink);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .highlight-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .highlight-box h3 {
+            color: var(--primary-pink);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Charts and Visualizations */
+        .chart-container {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--pink-light);
+        }
+
+        .chart-title {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary-pink);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: 250px;
+            margin: 20px 0;
+        }
+
+        .chart-axis {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            left: 0;
+            top: 0;
+            width: 50px;
+            padding-right: 10px;
+            border-right: 2px solid var(--gray);
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .chart-bars {
+            position: absolute;
+            left: 70px;
+            right: 20px;
+            bottom: 0;
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 25px;
+            padding: 0 10px;
+        }
+
+        .chart-bar {
+            flex: 1;
+            background: var(--gradient-pink);
+            position: relative;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.8s ease-out;
+            min-width: 60px;
+            box-shadow: 0 4px 12px rgba(255, 94, 142, 0.2);
+        }
+
+        .chart-bar-label {
+            position: absolute;
+            bottom: -35px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: 600;
+            color: var(--gray-dark);
+            font-size: 1rem;
+        }
+
+        .chart-bar-value {
+            position: absolute;
+            top: -30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: 700;
+            color: var(--primary-pink);
+            font-size: 1.1rem;
+        }
+
+        .chart-x-axis {
+            position: absolute;
+            bottom: -45px;
+            left: 70px;
+            right: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--gray-dark);
+            padding-top: 10px;
+            border-top: 2px solid var(--gray);
+        }
+
+        /* Matrix Display */
+        .matrix-display {
+            background: var(--gradient-subtle);
+            padding: 30px;
+            border-radius: var(--radius);
+            margin: 25px 0;
+            border: 2px solid var(--pink-light);
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        .matrix-cell {
+            background: var(--white);
+            padding: 20px 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--primary-pink);
+            box-shadow: 0 4px 10px rgba(255, 94, 142, 0.1);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .matrix-cell:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-pink);
+        }
+
+        /* CTA Sections */
+        .cta-section {
+            background: var(--gradient-pink);
+            color: var(--white);
+            padding: 40px;
+            border-radius: var(--radius);
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: ctaFloat 20s linear infinite;
+        }
+
+        @keyframes ctaFloat {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(100px, 100px) rotate(360deg); }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--white);
+            color: var(--primary-pink);
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: var(--transition);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            color: var(--pink-dark);
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 40px;
+            background: var(--off-white);
+            border-top: 2px solid var(--pink-light);
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--gradient-pink);
+            color: var(--white);
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 6px 20px rgba(255, 94, 142, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 94, 142, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .slide-counter {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-pink);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slide-counter span {
+            background: var(--gradient-pink);
+            color: var(--white);
             width: 40px;
             height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 94, 142, 0.3);
         }
-        
-        .slide-title {
-            font-family: 'Roboto Slab', serif;
-            color: #2c3e50;
-            font-size: 2.2em;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #3498db;
-            position: relative;
-        }
-        
-        .slide-title::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 100px;
-            height: 3px;
-            background: #e74c3c;
-        }
-        
-        .slide-content {
-            font-size: 1.15em;
-            line-height: 1.7;
-            color: #444;
-        }
-        
-        .highlight-box {
-            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-            padding: 25px;
-            border-radius: 15px;
-            margin: 25px 0;
-            border-left: 5px solid #3498db;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .visualization {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 30px 0;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e0e0e0;
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 250px;
-            margin: 20px 0;
-        }
-        
-        .chart-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .grid-line {
-            border-top: 1px dashed #ddd;
-            position: relative;
-        }
-        
-        .grid-label {
-            position: absolute;
-            left: -40px;
-            top: -10px;
-            font-size: 0.9em;
-            color: #666;
-        }
-        
-        .bars-container {
-            position: absolute;
-            bottom: 0;
-            left: 60px;
-            right: 20px;
-            height: 200px;
-            display: flex;
-            align-items: flex-end;
-            gap: 40px;
-            padding: 0 10px;
-        }
-        
-        .bar {
-            flex: 1;
-            background: linear-gradient(to top, #3498db, #2ecc71);
-            position: relative;
-            border-radius: 8px 8px 0 0;
-            transition: height 1s ease-out;
-            min-width: 60px;
-        }
-        
-        .bar-label {
-            position: absolute;
-            bottom: -30px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-weight: 500;
-            color: #2c3e50;
-        }
-        
-        .bar-value {
-            position: absolute;
-            top: -25px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        
-        .x-axis {
-            position: absolute;
-            bottom: -40px;
-            left: 60px;
-            right: 20px;
-            border-top: 2px solid #333;
-            padding-top: 10px;
-            text-align: center;
-            font-weight: 500;
-            color: #2c3e50;
-        }
-        
-        .y-axis {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 60px;
-            border-right: 2px solid #333;
-            text-align: right;
-            padding-right: 10px;
-            font-weight: 500;
-            color: #2c3e50;
-        }
-        
-        .matrix-display {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 2px solid #e0e0e0;
-            font-family: 'Courier New', monospace;
-            font-size: 1.2em;
-            overflow-x: auto;
-        }
-        
-        .matrix-row {
-            display: flex;
-            justify-content: center;
-            margin: 5px 0;
-        }
-        
-        .matrix-cell {
-            width: 80px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: white;
-            margin: 0 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        
-        .math-equation {
-            background: linear-gradient(135deg, #fffde7, #f1f8e9);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 10px;
-            border-left: 4px solid #4CAF50;
-            font-size: 1.2em;
-        }
-        
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            padding: 25px 40px;
-            background: #f8f9fa;
-            border-top: 2px solid #e0e0e0;
-        }
-        
-        .nav-btn {
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-        }
-        
-        .nav-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
-            background: linear-gradient(135deg, #2980b9, #2573a7);
-        }
-        
-        .nav-btn:active {
-            transform: translateY(-1px);
-        }
-        
-        .slide-counter {
-            font-size: 1.3em;
-            font-weight: 600;
-            color: #2c3e50;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
+
+        /* Lists */
         .keypoint-list {
-            margin: 20px 0 20px 30px;
+            margin: 25px 0 25px 35px;
         }
-        
+
         .keypoint-list li {
-            margin-bottom: 12px;
-            padding-left: 10px;
+            margin-bottom: 15px;
+            padding-left: 15px;
             position: relative;
+            font-size: 1.1rem;
         }
-        
+
         .keypoint-list li::before {
-            content: '▸';
-            color: #3498db;
+            content: '✦';
+            color: var(--primary-pink);
             font-weight: bold;
             position: absolute;
-            left: -20px;
+            left: -25px;
+            font-size: 1.2rem;
         }
-        
+
+        /* Tables */
         .data-table {
             width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
         }
-        
+
         .data-table th {
-            background: #2c3e50;
-            color: white;
-            padding: 15px;
+            background: var(--gradient-pink);
+            color: var(--white);
+            padding: 20px;
             text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
         }
-        
+
         .data-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #ddd;
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--pink-light);
+            background: var(--white);
+            transition: var(--transition);
         }
-        
-        .data-table tr:nth-child(even) {
-            background: #f8f9fa;
+
+        .data-table tr:nth-child(even) td {
+            background: var(--off-white);
         }
-        
-        .data-table tr:hover {
-            background: #e3f2fd;
+
+        .data-table tr:hover td {
+            background: var(--pink-light);
+            transform: scale(1.01);
         }
-        
+
+        /* Mobile Optimizations */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
             .header h1 {
-                font-size: 2em;
+                font-size: 2rem;
             }
             
-            .slides-wrapper {
-                padding: 20px;
-            }
-            
-            .slide-title {
-                font-size: 1.8em;
+            .header h2 {
+                font-size: 1.1rem;
             }
             
             .student-info {
                 flex-direction: column;
                 gap: 15px;
+                padding: 15px;
+                margin-top: 20px;
             }
             
-            .bars-container {
+            .slides-wrapper {
+                padding: 20px;
+                min-height: auto;
+            }
+            
+            .slide {
+                min-height: auto;
+                padding-bottom: 30px;
+            }
+            
+            .slide-title {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            
+            .slide-content {
+                padding-right: 0;
+                font-size: 1.05rem;
+            }
+            
+            .chart-wrapper {
+                height: 200px;
+            }
+            
+            .chart-bars {
+                left: 50px;
                 gap: 15px;
+            }
+            
+            .chart-bar {
+                min-width: 40px;
+            }
+            
+            .chart-x-axis {
+                left: 50px;
+            }
+            
+            .matrix-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            
+            .matrix-cell {
+                padding: 15px 5px;
+                font-size: 1.1rem;
+            }
+            
+            .cta-section {
+                padding: 30px 20px;
+                margin: 30px 0;
+            }
+            
+            .cta-title {
+                font-size: 1.8rem;
+            }
+            
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
             }
             
             .navigation {
                 flex-direction: column;
-                gap: 15px;
-                align-items: center;
+                gap: 20px;
+                padding: 25px 20px;
             }
             
             .nav-btn {
                 width: 100%;
                 justify-content: center;
             }
+            
+            .slide-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .highlight-box {
+                padding: 20px;
+            }
+            
+            .chart-container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.7rem;
+            }
+            
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            
+            .chart-wrapper {
+                height: 180px;
+            }
+            
+            .chart-bars {
+                left: 40px;
+                gap: 10px;
+            }
+            
+            .chart-bar-label {
+                font-size: 0.9rem;
+                bottom: -30px;
+            }
+            
+            .chart-bar-value {
+                font-size: 1rem;
+                top: -25px;
+            }
+            
+            .matrix-grid {
+                gap: 8px;
+            }
+            
+            .matrix-cell {
+                padding: 12px 5px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: var(--pink-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient-pink);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            border-bottom: 1px dotted var(--primary-pink);
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background: var(--gray-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 100;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
         }
     </style>
 </head>
 <body>
     <div class="presentation-container">
-        <!-- Header Section -->
+        <!-- Header -->
         <div class="header">
             <div class="header-content">
-                <h1>Energy Usage Optimization in Buildings</h1>
-                <h2>Applying Matrix Algebra to Real-World Sustainability</h2>
+                <h1><i class="fas fa-bolt"></i> Energy Optimization</h1>
+                <h2>Applying Matrix Algebra to Sustainable Building Design</h2>
                 <div class="student-info">
-                    <div class="info-item"><strong>Name:</strong> Hari L</div>
-                    <div class="info-item"><strong>Registration:</strong> 21225080015</div>
-                    <div class="info-item"><strong>Course:</strong> SH2201</div>
+                    <div class="info-item">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Hari L</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-id-card"></i>
+                        <span>21225080015</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-book"></i>
+                        <span>SH2201 Capstone</span>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
                 </div>
             </div>
         </div>
-        
-        <!-- Slides Container -->
+
+        <!-- Slides -->
         <div class="slides-wrapper">
-            
             <!-- Slide 1 -->
             <div class="slide active" id="slide1">
                 <div class="slide-number">1</div>
                 <h2 class="slide-title">The Energy Challenge</h2>
                 <div class="slide-content">
-                    <p>Commercial buildings consume 40% of global energy, with significant inefficiencies in current systems.</p>
+                    <p>Commercial buildings consume <span class="tooltip">40%<span class="tooltiptext">Global energy consumption by commercial buildings</span></span> of worldwide energy, with inefficient distribution systems causing significant waste.</p>
                     
                     <div class="highlight-box">
-                        <h3>Primary Objective</h3>
-                        <p>Use matrix algebra to model, analyze, and optimize energy distribution in multi-zone buildings, targeting 25-30% reduction in consumption while maintaining optimal environmental conditions.</p>
+                        <h3><i class="fas fa-bullseye"></i> Primary Objective</h3>
+                        <p>Utilize matrix algebra to model, analyze, and optimize energy flow in multi-zone buildings, targeting <strong>30% reduction</strong> in consumption while maintaining optimal comfort levels.</p>
                     </div>
                     
-                    <div class="visualization">
-                        <h3>Typical Energy Distribution in Office Buildings</h3>
-                        <div class="chart-container">
-                            <div class="y-axis">
+                    <div class="chart-container">
+                        <h3 class="chart-title">Energy Distribution Analysis</h3>
+                        <div class="chart-wrapper">
+                            <div class="chart-axis">
                                 <div>100%</div>
                                 <div>75%</div>
                                 <div>50%</div>
                                 <div>25%</div>
                                 <div>0%</div>
                             </div>
-                            <div class="bars-container">
-                                <div class="bar" style="height: 70%;" data-value="40%">
-                                    <div class="bar-value">40%</div>
-                                    <div class="bar-label">HVAC</div>
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height: 70%;">
+                                    <div class="chart-bar-value">40%</div>
+                                    <div class="chart-bar-label">HVAC</div>
                                 </div>
-                                <div class="bar" style="height: 50%;" data-value="25%">
-                                    <div class="bar-value">25%</div>
-                                    <div class="bar-label">Lighting</div>
+                                <div class="chart-bar" style="height: 50%;">
+                                    <div class="chart-bar-value">25%</div>
+                                    <div class="chart-bar-label">Lighting</div>
                                 </div>
-                                <div class="bar" style="height: 30%;" data-value="15%">
-                                    <div class="bar-value">15%</div>
-                                    <div class="bar-label">Equipment</div>
+                                <div class="chart-bar" style="height: 30%;">
+                                    <div class="chart-bar-value">15%</div>
+                                    <div class="chart-bar-label">Equipment</div>
                                 </div>
-                                <div class="bar" style="height: 20%;" data-value="10%">
-                                    <div class="bar-value">10%</div>
-                                    <div class="bar-label">Other</div>
+                                <div class="chart-bar" style="height: 20%;">
+                                    <div class="chart-bar-value">10%</div>
+                                    <div class="chart-bar-label">Other</div>
                                 </div>
                             </div>
-                            <div class="x-axis">Energy Usage Categories</div>
+                            <div class="chart-x-axis">Energy Consumption Categories</div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slide 2 -->
             <div class="slide" id="slide2">
                 <div class="slide-number">2</div>
                 <h2 class="slide-title">Mathematical Framework</h2>
                 <div class="slide-content">
-                    <p>We model the building as interconnected thermal zones, creating an energy flow matrix that captures heat transfer between zones.</p>
+                    <p>We model building zones as interconnected nodes in a matrix system, capturing thermal dynamics through linear algebra.</p>
                     
                     <div class="matrix-display">
-                        <h3>Energy Transfer Matrix</h3>
-                        <p>Each element E[i][j] represents the proportion of energy transferred from zone i to zone j</p>
+                        <h3><i class="fas fa-project-diagram"></i> Energy Transfer Matrix</h3>
+                        <p>E[i][j] represents energy proportion transferred from zone i to zone j</p>
                         
-                        <div class="matrix-row">
+                        <div class="matrix-grid">
                             <div class="matrix-cell">0.80</div>
                             <div class="matrix-cell">0.10</div>
                             <div class="matrix-cell">0.05</div>
-                        </div>
-                        <div class="matrix-row">
                             <div class="matrix-cell">0.05</div>
                             <div class="matrix-cell">0.70</div>
                             <div class="matrix-cell">0.15</div>
-                        </div>
-                        <div class="matrix-row">
                             <div class="matrix-cell">0.02</div>
                             <div class="matrix-cell">0.08</div>
                             <div class="matrix-cell">0.90</div>
                         </div>
                         
-                        <div style="margin-top: 15px; text-align: center; color: #666; font-size: 0.9em;">
-                            Rows: Source zones (Office, Common Areas, Service)<br>
-                            Columns: Destination zones
-                        </div>
-                    </div>
-                    
-                    <div class="highlight-box">
-                        <p><strong>Key Insight:</strong> The diagonal elements represent energy retained within each zone. Row sums approach 1, accounting for conservation principles with minor losses.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 3 -->
-            <div class="slide" id="slide3">
-                <div class="slide-number">3</div>
-                <h2 class="slide-title">Optimization Problem Formulation</h2>
-                <div class="slide-content">
-                    <p>We frame energy optimization as a linear programming problem using matrix operations:</p>
-                    
-                    <div class="math-equation">
-                        <h3>Objective Function</h3>
-                        <p><strong>Minimize:</strong> Cost = 0.12x₁ + 0.08x₂ + 0.15x₃</p>
-                        <p>Where x₁, x₂, x₃ represent energy allocated to three zones</p>
-                    </div>
-                    
-                    <div class="matrix-display">
-                        <h3>Constraint Matrix</h3>
-                        <p>System limitations expressed as matrix inequality:</p>
-                        
-                        <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                            <div>
-                                <div class="matrix-row">
-                                    <div class="matrix-cell">1.0</div>
-                                    <div class="matrix-cell">0.3</div>
-                                    <div class="matrix-cell">0.2</div>
-                                </div>
-                                <div class="matrix-row">
-                                    <div class="matrix-cell">0.2</div>
-                                    <div class="matrix-cell">1.0</div>
-                                    <div class="matrix-cell">0.4</div>
-                                </div>
-                                <div class="matrix-row">
-                                    <div class="matrix-cell">0.1</div>
-                                    <div class="matrix-cell">0.2</div>
-                                    <div class="matrix-cell">1.0</div>
-                                </div>
-                            </div>
-                            
-                            <div style="font-size: 2em; color: #3498db;">×</div>
-                            
-                            <div>
-                                <div class="matrix-row">
-                                    <div class="matrix-cell">x₁</div>
-                                </div>
-                                <div class="matrix-row">
-                                    <div class="matrix-cell">x₂</div>
-                                </div>
-                                <div class="matrix-row">
-                                    <div class="matrix-cell">x₃</div>
-                                </div>
-                            </div>
-                            
-                            <div style="font-size: 2em; color: #3498db;">≤</div>
-                            
-                            <div>
-                                <div class="matrix-row">
-                                    <div class="matrix-cell" style="background: #ffebee; color: #d32f2f;">100</div>
-                                </div>
-                                <div class="matrix-row">
-                                    <div class="matrix-cell" style="background: #ffebee; color: #d32f2f;">80</div>
-                                </div>
-                                <div class="matrix-row">
-                                    <div class="matrix-cell" style="background: #ffebee; color: #d32f2f;">60</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <p style="margin-top: 15px; text-align: center; color: #666;">
-                            Maximum allowable energy (kWh) constraints for each zone
+                        <p style="text-align: center; margin-top: 20px; color: var(--gray);">
+                            <i class="fas fa-info-circle"></i> Diagonal values show energy retention in each zone
                         </p>
                     </div>
                 </div>
             </div>
-            
+
+            <!-- Slide 3 -->
+            <div class="slide" id="slide3">
+                <div class="slide-number">3</div>
+                <h2 class="slide-title">Optimization Model</h2>
+                <div class="slide-content">
+                    <p>Formulating energy optimization as a linear programming problem:</p>
+                    
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-calculator"></i> Objective Function</h3>
+                        <p><strong>Minimize:</strong> Total Cost = 0.12x₁ + 0.08x₂ + 0.15x₃</p>
+                        <p>Where x₁, x₂, x₃ represent energy allocation to three building zones</p>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3 class="chart-title">Zone Energy Constraints</h3>
+                        <div class="chart-wrapper">
+                            <div class="chart-axis">
+                                <div>120</div>
+                                <div>90</div>
+                                <div>60</div>
+                                <div>30</div>
+                                <div>0</div>
+                            </div>
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height: 83%; background: linear-gradient(to top, #ff5e8e, #ff1493);">
+                                    <div class="chart-bar-value">100</div>
+                                    <div class="chart-bar-label">Zone 1</div>
+                                </div>
+                                <div class="chart-bar" style="height: 67%; background: linear-gradient(to top, #ff8e5e, #ff6b42);">
+                                    <div class="chart-bar-value">80</div>
+                                    <div class="chart-bar-label">Zone 2</div>
+                                </div>
+                                <div class="chart-bar" style="height: 50%; background: linear-gradient(to top, #5e8eff, #4287ff);">
+                                    <div class="chart-bar-value">60</div>
+                                    <div class="chart-bar-label">Zone 3</div>
+                                </div>
+                            </div>
+                            <div class="chart-x-axis">Maximum Allowable Energy (kWh)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Slide 4 -->
             <div class="slide" id="slide4">
                 <div class="slide-number">4</div>
                 <h2 class="slide-title">Eigenvalue Analysis</h2>
                 <div class="slide-content">
-                    <p>Finding the steady-state energy distribution using eigenvalues and eigenvectors:</p>
+                    <p>Finding steady-state distribution through eigenvalue decomposition:</p>
                     
-                    <div class="math-equation">
-                        <h3>Eigenvalue Equation</h3>
-                        <p>E · v = λ · v</p>
-                        <p>Where λ represents scaling factors and v represents distribution vectors</p>
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-chart-line"></i> Eigenvalue Equation</h3>
+                        <p><strong>E · v = λ · v</strong></p>
+                        <p>Where λ represents scaling factors and v represents energy distribution vectors</p>
                     </div>
                     
-                    <div class="visualization">
-                        <h3>Convergence to Steady-State</h3>
-                        <div class="chart-container">
-                            <div class="y-axis">
+                    <div class="chart-container">
+                        <h3 class="chart-title">Steady-State Convergence</h3>
+                        <div class="chart-wrapper">
+                            <div class="chart-axis">
                                 <div>100%</div>
                                 <div>75%</div>
                                 <div>50%</div>
                                 <div>25%</div>
                                 <div>0%</div>
                             </div>
-                            <div class="bars-container">
-                                <div class="bar" style="height: 85%; background: linear-gradient(to top, #3498db, #2980b9);" data-value="Current">
-                                    <div class="bar-value">65%</div>
-                                    <div class="bar-label">Current</div>
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height: 65%; background: linear-gradient(to top, #ff5e8e, #ff1493);">
+                                    <div class="chart-bar-value">65%</div>
+                                    <div class="chart-bar-label">Current</div>
                                 </div>
-                                <div class="bar" style="height: 60%; background: linear-gradient(to top, #2ecc71, #27ae60);" data-value="Optimized">
-                                    <div class="bar-value">45%</div>
-                                    <div class="bar-label">Optimized</div>
+                                <div class="chart-bar" style="height: 45%; background: linear-gradient(to top, #2ecc71, #27ae60);">
+                                    <div class="chart-bar-value">45%</div>
+                                    <div class="chart-bar-label">Optimized</div>
                                 </div>
                             </div>
-                            <div class="x-axis">Office Space Energy Usage</div>
+                            <div class="chart-x-axis">Office Space Energy Usage</div>
                         </div>
-                        <p style="text-align: center; margin-top: 15px; color: #666;">
-                            The eigenvector corresponding to λ=1 reveals optimal steady-state distribution
-                        </p>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slide 5 -->
             <div class="slide" id="slide5">
                 <div class="slide-number">5</div>
-                <h2 class="slide-title">Solution Algorithm</h2>
-                <div class="slide-content">
-                    <p>We implement the Simplex Method using matrix operations to solve the optimization problem:</p>
-                    
-                    <div class="highlight-box">
-                        <h3>Algorithm Steps</h3>
-                        <ol class="keypoint-list">
-                            <li>Formulate initial tableau matrix with constraints and objective function</li>
-                            <li>Apply Gaussian elimination to find basic feasible solution</li>
-                            <li>Iterate using pivot operations to improve objective value</li>
-                            <li>Check optimality conditions using reduced costs</li>
-                            <li>Extract optimal solution from final tableau</li>
-                        </ol>
-                    </div>
-                    
-                    <div class="matrix-display">
-                        <h3>Initial Tableau Matrix</h3>
-                        <div style="overflow-x: auto;">
-                            <table class="data-table">
-                                <tr>
-                                    <th>Basic</th>
-                                    <th>x₁</th>
-                                    <th>x₂</th>
-                                    <th>x₃</th>
-                                    <th>s₁</th>
-                                    <th>s₂</th>
-                                    <th>s₃</th>
-                                    <th>Solution</th>
-                                </tr>
-                                <tr>
-                                    <td>s₁</td>
-                                    <td>1.0</td>
-                                    <td>0.3</td>
-                                    <td>0.2</td>
-                                    <td>1</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>s₂</td>
-                                    <td>0.2</td>
-                                    <td>1.0</td>
-                                    <td>0.4</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>0</td>
-                                    <td>80</td>
-                                </tr>
-                                <tr>
-                                    <td>s₃</td>
-                                    <td>0.1</td>
-                                    <td>0.2</td>
-                                    <td>1.0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>1</td>
-                                    <td>60</td>
-                                </tr>
-                                <tr>
-                                    <td>Z</td>
-                                    <td>-0.12</td>
-                                    <td>-0.08</td>
-                                    <td>-0.15</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 6 -->
-            <div class="slide" id="slide6">
-                <div class="slide-number">6</div>
                 <h2 class="slide-title">Simulation Results</h2>
                 <div class="slide-content">
-                    <p>Applying the matrix-based optimization yields significant energy savings:</p>
+                    <p>Matrix-based optimization delivers measurable impact:</p>
                     
-                    <div class="visualization">
-                        <h3>Monthly Energy Consumption Comparison</h3>
-                        <div class="chart-container">
-                            <div class="y-axis">
+                    <div class="chart-container">
+                        <h3 class="chart-title">Monthly Energy Reduction</h3>
+                        <div class="chart-wrapper">
+                            <div class="chart-axis">
                                 <div>250k</div>
                                 <div>200k</div>
                                 <div>150k</div>
@@ -751,241 +936,242 @@
                                 <div>50k</div>
                                 <div>0k</div>
                             </div>
-                            <div class="bars-container">
-                                <div class="bar" style="height: 100%; background: linear-gradient(to top, #e74c3c, #c0392b);" data-value="Baseline">
-                                    <div class="bar-value">250k</div>
-                                    <div class="bar-label">Baseline</div>
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height: 100%; background: linear-gradient(to top, #ff5e8e, #ff1493);">
+                                    <div class="chart-bar-value">250k</div>
+                                    <div class="chart-bar-label">Before</div>
                                 </div>
-                                <div class="bar" style="height: 71.5%; background: linear-gradient(to top, #2ecc71, #27ae60);" data-value="Optimized">
-                                    <div class="bar-value">179k</div>
-                                    <div class="bar-label">Optimized</div>
+                                <div class="chart-bar" style="height: 72%; background: linear-gradient(to top, #2ecc71, #27ae60);">
+                                    <div class="chart-bar-value">179k</div>
+                                    <div class="chart-bar-label">After</div>
                                 </div>
                             </div>
-                            <div class="x-axis">kWh Consumption</div>
+                            <div class="chart-x-axis">Energy Consumption (kWh)</div>
                         </div>
                     </div>
                     
-                    <div class="highlight-box">
-                        <h3>Key Performance Indicators</h3>
-                        <table class="data-table">
+                    <div class="cta-section">
+                        <div class="cta-content">
+                            <h3 class="cta-title"><i class="fas fa-trophy"></i> 28.5% Reduction Achieved!</h3>
+                            <p>Our matrix optimization model successfully reduced energy consumption by 28.5% while maintaining comfort levels.</p>
+                            <a href="#slide6" class="cta-button" onclick="goToSlide(6)">
+                                <i class="fas fa-chart-pie"></i> View Detailed Analysis
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6 -->
+            <div class="slide" id="slide6">
+                <div class="slide-number">6</div>
+                <h2 class="slide-title">Financial Impact</h2>
+                <div class="slide-content">
+                    <p>Significant cost savings with rapid return on investment:</p>
+                    
+                    <table class="data-table">
+                        <thead>
                             <tr>
                                 <th>Metric</th>
                                 <th>Value</th>
-                                <th>Improvement</th>
+                                <th>Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Monthly Savings</td>
+                                <td>₹568,000</td>
+                                <td>19.2% reduction</td>
                             </tr>
                             <tr>
-                                <td>Energy Reduction</td>
-                                <td>71,000 kWh/month</td>
-                                <td>28.5%</td>
+                                <td>Annual Savings</td>
+                                <td>₹6.8 Million</td>
+                                <td>Significant ROI</td>
                             </tr>
                             <tr>
-                                <td>Cost Savings</td>
-                                <td>₹568,000/month</td>
-                                <td>19.2%</td>
+                                <td>Payback Period</td>
+                                <td>1.76 years</td>
+                                <td>Quick return</td>
                             </tr>
                             <tr>
                                 <td>Carbon Reduction</td>
-                                <td>42.6 tons CO₂/month</td>
-                                <td>Equivalent to 900 trees</td>
+                                <td>42.6 tons/month</td>
+                                <td>Environmental benefit</td>
                             </tr>
-                            <tr>
-                                <td>Comfort Improvement</td>
-                                <td>92% of zones</td>
-                                <td>Optimal temperature range</td>
-                            </tr>
-                        </table>
+                        </tbody>
+                    </table>
+                    
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-money-bill-wave"></i> 5-Year Projection</h3>
+                        <ul class="keypoint-list">
+                            <li><strong>Total Savings:</strong> ₹34 Million</li>
+                            <li><strong>Net Present Value:</strong> ₹28.5 Million</li>
+                            <li><strong>Internal Rate of Return:</strong> 56.8%</li>
+                            <li><strong>Carbon Offset:</strong> 2,556 tons CO₂</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slide 7 -->
             <div class="slide" id="slide7">
                 <div class="slide-number">7</div>
-                <h2 class="slide-title">Cost-Benefit Analysis</h2>
+                <h2 class="slide-title">Scalability & Applications</h2>
                 <div class="slide-content">
-                    <p>The financial implications of implementing the optimization system:</p>
+                    <p>The matrix approach scales efficiently for complex systems:</p>
                     
-                    <div class="visualization">
-                        <h3>Return on Investment Timeline</h3>
-                        <div class="chart-container">
-                            <div class="y-axis">
-                                <div>₹30L</div>
-                                <div>₹25L</div>
-                                <div>₹20L</div>
-                                <div>₹15L</div>
-                                <div>₹10L</div>
-                                <div>₹5L</div>
-                                <div>₹0L</div>
+                    <div class="chart-container">
+                        <h3 class="chart-title">Application Scope</h3>
+                        <div class="chart-wrapper">
+                            <div class="chart-axis">
+                                <div>100%</div>
+                                <div>75%</div>
+                                <div>50%</div>
+                                <div>25%</div>
+                                <div>0%</div>
                             </div>
-                            <div class="bars-container">
-                                <div class="bar" style="height: 33%; background: linear-gradient(to top, #e74c3c, #c0392b);" data-value="Year 0">
-                                    <div class="bar-value">-₹10L</div>
-                                    <div class="bar-label">Initial</div>
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height: 85%; background: linear-gradient(to top, #ff5e8e, #ff1493);">
+                                    <div class="chart-bar-value">85%</div>
+                                    <div class="chart-bar-label">Campus</div>
                                 </div>
-                                <div class="bar" style="height: 60%; background: linear-gradient(to top, #f39c12, #e67e22);" data-value="Year 1">
-                                    <div class="bar-value">+₹5.7L</div>
-                                    <div class="bar-label">Year 1</div>
+                                <div class="chart-bar" style="height: 90%; background: linear-gradient(to top, #ff8e5e, #ff6b42);">
+                                    <div class="chart-bar-value">90%</div>
+                                    <div class="chart-bar-label">Industry</div>
                                 </div>
-                                <div class="bar" style="height: 83%; background: linear-gradient(to top, #2ecc71, #27ae60);" data-value="Year 2">
-                                    <div class="bar-value">+₹11.4L</div>
-                                    <div class="bar-label">Year 2</div>
-                                </div>
-                                <div class="bar" style="height: 100%; background: linear-gradient(to top, #3498db, #2980b9);" data-value="Year 3">
-                                    <div class="bar-value">+₹17.1L</div>
-                                    <div class="bar-label">Year 3</div>
+                                <div class="chart-bar" style="height: 95%; background: linear-gradient(to top, #5e8eff, #4287ff);">
+                                    <div class="chart-bar-value">95%</div>
+                                    <div class="chart-bar-label">Smart City</div>
                                 </div>
                             </div>
-                            <div class="x-axis">Implementation Timeline</div>
+                            <div class="chart-x-axis">Scalability Potential</div>
                         </div>
                     </div>
                     
                     <div class="highlight-box">
-                        <h3>Financial Summary</h3>
+                        <h3><i class="fas fa-expand-alt"></i> Extended Applications</h3>
                         <ul class="keypoint-list">
-                            <li><strong>Initial Investment:</strong> ₹10,00,000 (sensors, controllers, software)</li>
-                            <li><strong>Annual Savings:</strong> ₹68,16,000 (energy cost reduction)</li>
-                            <li><strong>Payback Period:</strong> 1.76 years</li>
-                            <li><strong>5-Year Net Savings:</strong> ₹2.4 crores</li>
-                            <li><strong>Internal Rate of Return:</strong> 56.8%</li>
+                            <li><strong>Campus Networks:</strong> 15×15 matrix optimization</li>
+                            <li><strong>Industrial Complexes:</strong> Process heat recovery</li>
+                            <li><strong>Smart Cities:</strong> District-level energy management</li>
+                            <li><strong>Renewable Integration:</strong> Solar/wind complementarity</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slide 8 -->
             <div class="slide" id="slide8">
                 <div class="slide-number">8</div>
-                <h2 class="slide-title">Scalability & Applications</h2>
+                <h2 class="slide-title">Methodology & Process</h2>
                 <div class="slide-content">
-                    <p>The matrix-based approach scales effectively for larger and more complex systems:</p>
+                    <p>Our systematic approach to energy optimization:</p>
                     
                     <div class="highlight-box">
-                        <h3>Extended Applications</h3>
-                        <table class="data-table">
-                            <tr>
-                                <th>Application</th>
-                                <th>Matrix Dimension</th>
-                                <th>Key Variables</th>
-                            </tr>
-                            <tr>
-                                <td>Campus Energy Network</td>
-                                <td>15×15</td>
-                                <td>Building interconnectivity</td>
-                            </tr>
-                            <tr>
-                                <td>Industrial Complex</td>
-                                <td>25×25</td>
-                                <td>Process heat recovery</td>
-                            </tr>
-                            <tr>
-                                <td>Smart City District</td>
-                                <td>50×50</td>
-                                <td>Integrated resource management</td>
-                            </tr>
-                            <tr>
-                                <td>Renewable Integration</td>
-                                <td>10×10</td>
-                                <td>Solar/wind complementarity</td>
-                            </tr>
-                        </table>
+                        <h3><i class="fas fa-sitemap"></i> 5-Step Process</h3>
+                        <ol class="keypoint-list">
+                            <li><strong>Data Collection:</strong> Gather energy consumption patterns</li>
+                            <li><strong>Matrix Formulation:</strong> Create energy transfer matrices</li>
+                            <li><strong>Optimization:</strong> Apply linear programming techniques</li>
+                            <li><strong>Simulation:</strong> Test scenarios using eigenvalue analysis</li>
+                            <li><strong>Implementation:</strong> Deploy optimized energy schedules</li>
+                        </ol>
                     </div>
                     
-                    <div class="matrix-display">
-                        <h3>Scalability Advantage</h3>
-                        <ul class="keypoint-list">
-                            <li><strong>Computational Efficiency:</strong> O(n³) operations for n zones</li>
-                            <li><strong>Parallel Processing:</strong> Matrix operations are highly parallelizable</li>
-                            <li><strong>Real-time Updates:</strong> Incremental matrix adjustments for dynamic conditions</li>
-                            <li><strong>Integration Ready:</strong> Compatible with IoT sensor networks</li>
-                        </ul>
+                    <div class="cta-section">
+                        <div class="cta-content">
+                            <h3 class="cta-title"><i class="fas fa-lightbulb"></i> Innovation Highlight</h3>
+                            <p>Our unique approach combines traditional matrix algebra with modern IoT data for real-time optimization.</p>
+                            <a href="#slide9" class="cta-button" onclick="goToSlide(9)">
+                                <i class="fas fa-rocket"></i> See Future Applications
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slide 9 -->
             <div class="slide" id="slide9">
                 <div class="slide-number">9</div>
-                <h2 class="slide-title">Limitations & Future Work</h2>
+                <h2 class="slide-title">Future Enhancements</h2>
                 <div class="slide-content">
-                    <p>While effective, the matrix-based approach has certain limitations and opportunities for enhancement:</p>
+                    <p>Next-generation improvements and extensions:</p>
                     
-                    <div class="highlight-box">
-                        <h3>Current Limitations</h3>
-                        <ul class="keypoint-list">
-                            <li><strong>Linearity Assumption:</strong> Assumes linear relationships between variables</li>
-                            <li><strong>Static Parameters:</strong> Fixed matrix coefficients may not capture dynamic conditions</li>
-                            <li><strong>Computational Load:</strong> Large matrices require significant processing power</li>
-                            <li><strong>Data Requirements:</strong> Depends on accurate sensor data from all zones</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="visualization">
-                        <h3>Future Enhancement Pathways</h3>
-                        <ul class="keypoint-list">
-                            <li><strong>Non-linear Extensions:</strong> Incorporate quadratic programming for non-linear effects</li>
-                            <li><strong>Machine Learning Integration:</strong> Adaptive matrix coefficients using AI</li>
-                            <li><strong>Predictive Analytics:</strong> Incorporate weather and occupancy forecasts</li>
-                            <li><strong>Blockchain Implementation:</strong> Secure, decentralized energy trading between buildings</li>
-                        </ul>
+                    <div class="chart-container">
+                        <h3 class="chart-title">Enhancement Roadmap</h3>
+                        <div class="chart-wrapper">
+                            <div class="chart-axis">
+                                <div>2024</div>
+                                <div>2025</div>
+                                <div>2026</div>
+                                <div>2027</div>
+                                <div>2028</div>
+                            </div>
+                            <div class="chart-bars">
+                                <div class="chart-bar" style="height: 40%; background: linear-gradient(to top, #ff5e8e, #ff1493);">
+                                    <div class="chart-bar-value">AI</div>
+                                    <div class="chart-bar-label">Integration</div>
+                                </div>
+                                <div class="chart-bar" style="height: 65%; background: linear-gradient(to top, #ff8e5e, #ff6b42);">
+                                    <div class="chart-bar-value">Real-time</div>
+                                    <div class="chart-bar-label">Analytics</div>
+                                </div>
+                                <div class="chart-bar" style="height: 85%; background: linear-gradient(to top, #5e8eff, #4287ff);">
+                                    <div class="chart-bar-value">Blockchain</div>
+                                    <div class="chart-bar-label">Trading</div>
+                                </div>
+                                <div class="chart-bar" style="height: 100%; background: linear-gradient(to top, #2ecc71, #27ae60);">
+                                    <div class="chart-bar-value">Smart</div>
+                                    <div class="chart-bar-label">Grid</div>
+                                </div>
+                            </div>
+                            <div class="chart-x-axis">Development Timeline</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Slide 10 -->
             <div class="slide" id="slide10">
                 <div class="slide-number">10</div>
-                <h2 class="slide-title">Conclusion & Engineering Impact</h2>
+                <h2 class="slide-title">Conclusion & Impact</h2>
                 <div class="slide-content">
-                    <p>Matrix algebra transforms from abstract mathematics to a powerful engineering tool for sustainability:</p>
+                    <p>Matrix algebra transforms theoretical mathematics into practical sustainability solutions:</p>
                     
                     <div class="highlight-box">
-                        <h3>Key Achievements</h3>
+                        <h3><i class="fas fa-award"></i> Key Achievements</h3>
                         <ul class="keypoint-list">
-                            <li>Demonstrated 28.5% energy reduction in simulated building model</li>
-                            <li>Developed scalable matrix framework applicable to complex systems</li>
-                            <li>Established clear financial case with 1.76-year payback period</li>
-                            <li>Created methodology adaptable to various building types and scales</li>
+                            <li><strong>28.5% Energy Reduction:</strong> Through matrix optimization</li>
+                            <li><strong>Scalable Framework:</strong> Applicable to various building types</li>
+                            <li><strong>Financial Viability:</strong> 1.76-year payback period</li>
+                            <li><strong>Environmental Impact:</strong> Significant carbon footprint reduction</li>
                         </ul>
                     </div>
                     
-                    <div class="visualization">
-                        <h3>Broader Implications</h3>
-                        <p>This work demonstrates how mathematical abstraction becomes practical engineering solution. The matrix algebra approach provides:</p>
-                        
-                        <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; flex-wrap: wrap;">
-                            <div style="text-align: center; padding: 20px; background: #e3f2fd; border-radius: 10px; min-width: 200px;">
-                                <div style="font-size: 2.5em; color: #3498db;">🎯</div>
-                                <h4>Precision</h4>
-                                <p>Exact mathematical optimization</p>
-                            </div>
-                            
-                            <div style="text-align: center; padding: 20px; background: #e8f5e9; border-radius: 10px; min-width: 200px;">
-                                <div style="font-size: 2.5em; color: #2ecc71;">⚡</div>
-                                <h4>Efficiency</h4>
-                                <p>Maximum savings with minimal resources</p>
-                            </div>
-                            
-                            <div style="text-align: center; padding: 20px; background: #f3e5f5; border-radius: 10px; min-width: 200px;">
-                                <div style="font-size: 2.5em; color: #9b59b6;">🌍</div>
-                                <h4>Sustainability</h4>
-                                <p>Reduced environmental impact</p>
+                    <div class="cta-section">
+                        <div class="cta-content">
+                            <h3 class="cta-title"><i class="fas fa-graduation-cap"></i> Presentation Complete</h3>
+                            <p>Thank you for your attention! This demonstrates the power of matrix algebra in solving real-world energy challenges.</p>
+                            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+                                <a href="#slide1" class="cta-button" onclick="goToSlide(1)">
+                                    <i class="fas fa-redo"></i> Restart Presentation
+                                </a>
                             </div>
                         </div>
                     </div>
                     
-                    <div style="text-align: center; margin-top: 30px; padding: 20px; background: linear-gradient(135deg, #2c3e50, #34495e); color: white; border-radius: 10px;">
-                        <h3 style="color: white; margin-bottom: 10px;">Thank You</h3>
-                        <p>Hari L | Registration: 21225080015</p>
-                        <p style="opacity: 0.9; font-size: 0.9em;">Questions & Discussion</p>
+                    <div style="text-align: center; margin-top: 30px; color: var(--gray);">
+                        <p><strong>Hari L | Registration: 21225080015</strong></p>
+                        <p>SH2201 - Calculus and Matrix Algebra Capstone Project</p>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Navigation -->
         <div class="navigation">
             <button class="nav-btn" id="prevBtn">
-                <span>←</span> Previous
+                <i class="fas fa-arrow-left"></i> Previous
             </button>
             
             <div class="slide-counter">
@@ -993,30 +1179,32 @@
             </div>
             
             <button class="nav-btn" id="nextBtn">
-                Next <span>→</span>
+                Next <i class="fas fa-arrow-right"></i>
             </button>
         </div>
     </div>
 
     <script>
-        // Slide management
+        // Slide Management
         let currentSlide = 1;
         const totalSlides = 10;
         
-        // DOM elements
+        // DOM Elements
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const currentSlideEl = document.getElementById('currentSlide');
         const totalSlidesEl = document.getElementById('totalSlides');
+        const progressBar = document.getElementById('progressBar');
         
         // Initialize
         totalSlidesEl.textContent = totalSlides;
+        updateProgressBar();
         
-        // Event listeners
+        // Event Listeners
         prevBtn.addEventListener('click', showPrevSlide);
         nextBtn.addEventListener('click', showNextSlide);
         
-        // Keyboard navigation
+        // Keyboard Navigation
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
                 showPrevSlide();
@@ -1025,14 +1213,13 @@
             }
         });
         
-        // Navigation functions
+        // Navigation Functions
         function showPrevSlide() {
             if (currentSlide > 1) {
                 document.getElementById(`slide${currentSlide}`).classList.remove('active');
                 currentSlide--;
                 document.getElementById(`slide${currentSlide}`).classList.add('active');
-                updateSlideCounter();
-                animateBars();
+                updateUI();
             }
         }
         
@@ -1041,22 +1228,41 @@
                 document.getElementById(`slide${currentSlide}`).classList.remove('active');
                 currentSlide++;
                 document.getElementById(`slide${currentSlide}`).classList.add('active');
-                updateSlideCounter();
-                animateBars();
+                updateUI();
             }
         }
         
-        function updateSlideCounter() {
+        function goToSlide(slideNumber) {
+            if (slideNumber >= 1 && slideNumber <= totalSlides) {
+                document.getElementById(`slide${currentSlide}`).classList.remove('active');
+                currentSlide = slideNumber;
+                document.getElementById(`slide${currentSlide}`).classList.add('active');
+                updateUI();
+            }
+        }
+        
+        function updateUI() {
             currentSlideEl.textContent = currentSlide;
+            updateProgressBar();
+            animateCharts();
             
             // Update button states
             prevBtn.disabled = currentSlide === 1;
             nextBtn.disabled = currentSlide === totalSlides;
+            
+            // Scroll to top on mobile
+            if (window.innerWidth < 768) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
         
-        // Animate chart bars when slide changes
-        function animateBars() {
-            const bars = document.querySelectorAll('.bar');
+        function updateProgressBar() {
+            const progress = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+        
+        function animateCharts() {
+            const bars = document.querySelectorAll('.chart-bar');
             bars.forEach(bar => {
                 const originalHeight = bar.style.height;
                 bar.style.height = '0%';
@@ -1069,10 +1275,10 @@
         
         // Initialize with animation
         window.addEventListener('DOMContentLoaded', function() {
-            animateBars();
-            updateSlideCounter();
+            animateCharts();
+            updateUI();
             
-            // Auto-advance for demonstration (every 45 seconds)
+            // Auto-advance for demonstration
             setInterval(() => {
                 if (currentSlide < totalSlides) {
                     showNextSlide();
@@ -1080,7 +1286,7 @@
             }, 45000);
         });
         
-        // Touch swipe support for mobile
+        // Touch Swipe Support
         let touchStartX = 0;
         let touchEndX = 0;
         
@@ -1104,6 +1310,18 @@
                 showPrevSlide();
             }
         }
+        
+        // Smooth scrolling for CTA buttons
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSlide = parseInt(targetId.replace('slide', ''));
+                if (!isNaN(targetSlide)) {
+                    goToSlide(targetSlide);
+                }
+            });
+        });
     </script>
 </body>
 </html>
