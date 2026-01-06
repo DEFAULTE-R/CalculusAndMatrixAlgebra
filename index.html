@@ -3,63 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energy Optimization | Calculus & Matrix Algebra</title>
+    <title>Energy Optimization | Matrix Algebra Capstone</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Reset and Base */
+        /* ===== CSS RESET & VARIABLES ===== */
+        :root {
+            --primary-rose: #ff7eb3;
+            --primary-light: #ffb8d9;
+            --primary-dark: #ff4d94;
+            --accent-magenta: #d63384;
+            --accent-deep: #9c2258;
+            --contrast-charcoal: #2d3748;
+            --contrast-light: #4a5568;
+            --bg-offwhite: #fffafc;
+            --bg-pastel: #ffeef6;
+            --surface-white: #ffffff;
+            --shadow-subtle: 0 4px 20px rgba(214, 51, 132, 0.08);
+            --shadow-elevated: 0 8px 32px rgba(214, 51, 132, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --transition-smooth: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-quick: all 0.25s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-pink: #ff5e8e;
-            --pink-light: #ffb6c1;
-            --pink-dark: #ff1493;
-            --white: #ffffff;
-            --off-white: #fff5f7;
-            --gray-light: #f8f9fa;
-            --gray: #6c757d;
-            --gray-dark: #343a40;
-            --success: #28a745;
-            --warning: #ffc107;
-            --info: #17a2b8;
-            --gradient-pink: linear-gradient(135deg, #ff5e8e 0%, #ff1493 100%);
-            --gradient-subtle: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
-            --shadow: 0 10px 30px rgba(255, 94, 142, 0.15);
-            --shadow-hover: 0 15px 40px rgba(255, 94, 142, 0.25);
-            --radius: 16px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--off-white);
-            color: var(--gray-dark);
+            background: var(--bg-offwhite);
+            color: var(--contrast-charcoal);
             line-height: 1.6;
             min-height: 100vh;
             padding: 20px;
             overflow-x: hidden;
         }
 
-        /* Container */
+        /* ===== PRESENTATION CONTAINER ===== */
         .presentation-container {
             max-width: 1200px;
             margin: 0 auto;
-            background: var(--white);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            background: var(--surface-white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-elevated);
             overflow: hidden;
             position: relative;
         }
 
-        /* Header */
+        /* ===== HEADER STYLES ===== */
         .header {
-            background: var(--gradient-pink);
-            color: var(--white);
-            padding: 40px 30px;
+            background: linear-gradient(135deg, var(--primary-rose) 0%, var(--accent-magenta) 100%);
+            color: white;
+            padding: clamp(30px, 5vw, 50px) 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -72,13 +77,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            animation: float 20s linear infinite;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+            animation: floatParticles 20s linear infinite;
         }
 
-        @keyframes float {
+        @keyframes floatParticles {
             0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(50px, 50px) rotate(360deg); }
+            100% { transform: translate(30px, 30px) rotate(360deg); }
         }
 
         .header-content {
@@ -88,53 +95,53 @@
 
         .header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
+            font-size: clamp(2rem, 4vw, 2.8rem);
             margin-bottom: 10px;
             font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
         }
 
         .header h2 {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 2vw, 1.3rem);
             font-weight: 400;
             opacity: 0.95;
             margin-bottom: 25px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .student-info {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: clamp(20px, 4vw, 40px);
             margin-top: 25px;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             background: rgba(255, 255, 255, 0.15);
-            padding: 18px 30px;
-            border-radius: 12px;
+            padding: clamp(15px, 3vw, 20px);
+            border-radius: var(--radius-md);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            flex-wrap: wrap;
         }
 
         .info-item {
             display: flex;
             align-items: center;
             gap: 10px;
+            white-space: nowrap;
         }
 
-        .info-item i {
-            font-size: 1.2rem;
-        }
-
-        /* Slides Wrapper */
+        /* ===== SLIDES SYSTEM ===== */
         .slides-wrapper {
-            padding: 40px;
-            min-height: 550px;
+            padding: clamp(20px, 4vw, 40px);
             position: relative;
         }
 
         .slide {
             display: none;
             animation: slideIn 0.5s ease-out;
-            min-height: 500px;
+            min-height: min(500px, 70vh);
         }
 
         .slide.active {
@@ -144,7 +151,7 @@
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -154,29 +161,29 @@
 
         .slide-number {
             position: absolute;
-            top: 15px;
-            right: 20px;
-            background: var(--gradient-pink);
-            color: var(--white);
-            width: 50px;
-            height: 50px;
+            top: clamp(10px, 2vw, 15px);
+            right: clamp(10px, 2vw, 20px);
+            background: linear-gradient(135deg, var(--primary-rose), var(--accent-magenta));
+            color: white;
+            width: clamp(40px, 6vw, 50px);
+            height: clamp(40px, 6vw, 50px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.3rem;
-            box-shadow: 0 6px 15px rgba(255, 94, 142, 0.3);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            box-shadow: var(--shadow-subtle);
             z-index: 10;
         }
 
         .slide-title {
             font-family: 'Playfair Display', serif;
-            color: var(--primary-pink);
-            font-size: 2.3rem;
+            color: var(--accent-magenta);
+            font-size: clamp(1.5rem, 3vw, 2.3rem);
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 3px solid var(--pink-light);
+            border-bottom: 3px solid var(--primary-light);
             position: relative;
         }
 
@@ -187,178 +194,141 @@
             left: 0;
             width: 80px;
             height: 3px;
-            background: var(--gradient-pink);
+            background: linear-gradient(90deg, var(--primary-rose), var(--accent-magenta));
         }
 
         .slide-content {
-            font-size: 1.15rem;
+            font-size: clamp(1rem, 1.5vw, 1.15rem);
             line-height: 1.7;
-            color: var(--gray-dark);
-            padding-right: 20px;
+            color: var(--contrast-charcoal);
         }
 
-        /* Highlight Box */
-        .highlight-box {
-            background: var(--gradient-subtle);
-            padding: 30px;
-            border-radius: var(--radius);
+        /* ===== CHART CONTAINERS ===== */
+        .chart-container {
+            background: var(--surface-white);
+            border-radius: var(--radius-lg);
+            padding: clamp(20px, 3vw, 30px);
             margin: 30px 0;
-            border-left: 5px solid var(--primary-pink);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid var(--primary-light);
+            transition: var(--transition-quick);
+        }
+
+        .chart-container:hover {
+            box-shadow: var(--shadow-elevated);
+            transform: translateY(-2px);
+        }
+
+        .chart-title {
+            text-align: center;
+            margin-bottom: clamp(15px, 3vw, 25px);
+            color: var(--accent-magenta);
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* ===== SVG CHART STYLES ===== */
+        .svg-chart {
+            width: 100%;
+            height: clamp(180px, 40vw, 250px);
+            overflow: visible;
+            margin: 20px 0;
+        }
+
+        .chart-grid line {
+            stroke: var(--primary-light);
+            stroke-width: 1;
+            stroke-dasharray: 3,3;
+        }
+
+        .chart-axis {
+            stroke: var(--contrast-light);
+            stroke-width: 2;
+        }
+
+        .chart-bar {
+            fill: url(#barGradient);
+            rx: 4;
+            ry: 4;
+            transition: var(--transition-smooth);
+            filter: drop-shadow(0 2px 4px rgba(214, 51, 132, 0.2));
+        }
+
+        .chart-bar:hover {
+            fill: url(#barGradientHover);
+            transform: scale(1.02);
+        }
+
+        .bar-value {
+            fill: var(--contrast-charcoal);
+            font-weight: 600;
+            font-size: 12px;
+            text-anchor: middle;
+            transition: var(--transition-quick);
+        }
+
+        .bar-label {
+            fill: var(--contrast-light);
+            font-size: 11px;
+            text-anchor: middle;
+            font-weight: 500;
+        }
+
+        .axis-label {
+            fill: var(--contrast-light);
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .axis-title {
+            fill: var(--accent-magenta);
+            font-size: 12px;
+            font-weight: 600;
+            text-anchor: middle;
+        }
+
+        /* SVG Gradients */
+        .svg-defs {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        /* ===== HIGHLIGHT BOXES ===== */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--bg-pastel) 0%, var(--surface-white) 100%);
+            padding: clamp(20px, 3vw, 30px);
+            border-radius: var(--radius-lg);
+            margin: 30px 0;
+            border-left: 5px solid var(--primary-rose);
+            box-shadow: var(--shadow-subtle);
+            transition: var(--transition-quick);
         }
 
         .highlight-box:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-elevated);
         }
 
         .highlight-box h3 {
-            color: var(--primary-pink);
+            color: var(--accent-magenta);
             margin-bottom: 15px;
-            font-size: 1.4rem;
+            font-size: clamp(1.2rem, 2vw, 1.4rem);
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* Charts and Visualizations */
-        .chart-container {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 25px;
-            margin: 30px 0;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--pink-light);
-        }
-
-        .chart-title {
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--primary-pink);
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .chart-wrapper {
-            position: relative;
-            height: 250px;
-            margin: 20px 0;
-        }
-
-        .chart-axis {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            left: 0;
-            top: 0;
-            width: 50px;
-            padding-right: 10px;
-            border-right: 2px solid var(--gray);
-            text-align: right;
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-
-        .chart-bars {
-            position: absolute;
-            left: 70px;
-            right: 20px;
-            bottom: 0;
-            height: 200px;
-            display: flex;
-            align-items: flex-end;
-            gap: 25px;
-            padding: 0 10px;
-        }
-
-        .chart-bar {
-            flex: 1;
-            background: var(--gradient-pink);
-            position: relative;
-            border-radius: 8px 8px 0 0;
-            transition: all 0.8s ease-out;
-            min-width: 60px;
-            box-shadow: 0 4px 12px rgba(255, 94, 142, 0.2);
-        }
-
-        .chart-bar-label {
-            position: absolute;
-            bottom: -35px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-weight: 600;
-            color: var(--gray-dark);
-            font-size: 1rem;
-        }
-
-        .chart-bar-value {
-            position: absolute;
-            top: -30px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-weight: 700;
-            color: var(--primary-pink);
-            font-size: 1.1rem;
-        }
-
-        .chart-x-axis {
-            position: absolute;
-            bottom: -45px;
-            left: 70px;
-            right: 20px;
-            text-align: center;
-            font-weight: 600;
-            color: var(--gray-dark);
-            padding-top: 10px;
-            border-top: 2px solid var(--gray);
-        }
-
-        /* Matrix Display */
-        .matrix-display {
-            background: var(--gradient-subtle);
-            padding: 30px;
-            border-radius: var(--radius);
-            margin: 25px 0;
-            border: 2px solid var(--pink-light);
-        }
-
-        .matrix-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 20px auto;
-            max-width: 400px;
-        }
-
-        .matrix-cell {
-            background: var(--white);
-            padding: 20px 10px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: var(--primary-pink);
-            box-shadow: 0 4px 10px rgba(255, 94, 142, 0.1);
-            transition: var(--transition);
-            border: 2px solid transparent;
-        }
-
-        .matrix-cell:hover {
-            transform: scale(1.05);
-            border-color: var(--primary-pink);
-        }
-
-        /* CTA Sections */
+        /* ===== CTA SECTIONS ===== */
         .cta-section {
-            background: var(--gradient-pink);
-            color: var(--white);
-            padding: 40px;
-            border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--primary-rose) 0%, var(--accent-magenta) 100%);
+            color: white;
+            padding: clamp(30px, 5vw, 50px) 20px;
+            border-radius: var(--radius-lg);
             margin: 40px 0;
             text-align: center;
             position: relative;
@@ -372,9 +342,10 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: ctaFloat 20s linear infinite;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
+            animation: ctaFloat 25s linear infinite;
         }
 
         @keyframes ctaFloat {
@@ -389,236 +360,109 @@
 
         .cta-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
             margin-bottom: 20px;
-            color: var(--white);
+            color: white;
         }
 
         .cta-button {
             display: inline-flex;
             align-items: center;
-            gap: 15px;
-            background: var(--white);
-            color: var(--primary-pink);
-            padding: 18px 40px;
+            gap: 12px;
+            background: white;
+            color: var(--accent-magenta);
+            padding: clamp(14px, 3vw, 18px) clamp(30px, 4vw, 40px);
             border-radius: 50px;
             font-weight: 600;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
             text-decoration: none;
-            margin-top: 30px;
-            transition: var(--transition);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            margin-top: 25px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border: 2px solid transparent;
         }
 
         .cta-button:hover {
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            color: var(--pink-dark);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            color: var(--accent-deep);
+            border-color: var(--primary-light);
         }
 
-        /* Navigation */
+        /* ===== NAVIGATION ===== */
         .navigation {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 40px;
-            background: var(--off-white);
-            border-top: 2px solid var(--pink-light);
+            padding: clamp(20px, 3vw, 25px) clamp(20px, 4vw, 40px);
+            background: var(--bg-pastel);
+            border-top: 2px solid var(--primary-light);
+            gap: 15px;
         }
 
         .nav-btn {
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: var(--gradient-pink);
-            color: var(--white);
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary-rose), var(--accent-magenta));
+            color: white;
             border: none;
-            padding: 16px 32px;
+            padding: clamp(12px, 2vw, 16px) clamp(20px, 3vw, 32px);
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 6px 20px rgba(255, 94, 142, 0.3);
+            transition: var(--transition-smooth);
+            box-shadow: 0 6px 20px rgba(214, 51, 132, 0.25);
+            white-space: nowrap;
         }
 
-        .nav-btn:hover {
+        .nav-btn:hover:not(:disabled) {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(255, 94, 142, 0.4);
+            box-shadow: 0 10px 30px rgba(214, 51, 132, 0.4);
         }
 
-        .nav-btn:active {
-            transform: translateY(-1px);
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .slide-counter {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 2vw, 1.3rem);
             font-weight: 700;
-            color: var(--primary-pink);
+            color: var(--accent-magenta);
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
 
         .slide-counter span {
-            background: var(--gradient-pink);
-            color: var(--white);
-            width: 40px;
-            height: 40px;
+            background: linear-gradient(135deg, var(--primary-rose), var(--accent-magenta));
+            color: white;
+            width: clamp(35px, 5vw, 40px);
+            height: clamp(35px, 5vw, 40px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 10px rgba(255, 94, 142, 0.3);
+            box-shadow: 0 4px 10px rgba(214, 51, 132, 0.3);
         }
 
-        /* Lists */
-        .keypoint-list {
-            margin: 25px 0 25px 35px;
-        }
-
-        .keypoint-list li {
-            margin-bottom: 15px;
-            padding-left: 15px;
-            position: relative;
-            font-size: 1.1rem;
-        }
-
-        .keypoint-list li::before {
-            content: '✦';
-            color: var(--primary-pink);
-            font-weight: bold;
-            position: absolute;
-            left: -25px;
-            font-size: 1.2rem;
-        }
-
-        /* Tables */
-        .data-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin: 25px 0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .data-table th {
-            background: var(--gradient-pink);
-            color: var(--white);
-            padding: 20px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .data-table td {
-            padding: 18px 20px;
-            border-bottom: 1px solid var(--pink-light);
-            background: var(--white);
-            transition: var(--transition);
-        }
-
-        .data-table tr:nth-child(even) td {
-            background: var(--off-white);
-        }
-
-        .data-table tr:hover td {
-            background: var(--pink-light);
-            transform: scale(1.01);
-        }
-
-        /* Mobile Optimizations */
+        /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
             }
             
-            .header {
-                padding: 30px 20px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .header h2 {
-                font-size: 1.1rem;
-            }
-            
             .student-info {
                 flex-direction: column;
-                gap: 15px;
-                padding: 15px;
-                margin-top: 20px;
-            }
-            
-            .slides-wrapper {
-                padding: 20px;
-                min-height: auto;
-            }
-            
-            .slide {
-                min-height: auto;
-                padding-bottom: 30px;
-            }
-            
-            .slide-title {
-                font-size: 1.8rem;
-                margin-bottom: 20px;
-            }
-            
-            .slide-content {
-                padding-right: 0;
-                font-size: 1.05rem;
-            }
-            
-            .chart-wrapper {
-                height: 200px;
-            }
-            
-            .chart-bars {
-                left: 50px;
-                gap: 15px;
-            }
-            
-            .chart-bar {
-                min-width: 40px;
-            }
-            
-            .chart-x-axis {
-                left: 50px;
-            }
-            
-            .matrix-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-            
-            .matrix-cell {
-                padding: 15px 5px;
-                font-size: 1.1rem;
-            }
-            
-            .cta-section {
-                padding: 30px 20px;
-                margin: 30px 0;
-            }
-            
-            .cta-title {
-                font-size: 1.8rem;
-            }
-            
-            .cta-button {
-                padding: 15px 30px;
-                font-size: 1.1rem;
+                gap: 12px;
             }
             
             .navigation {
                 flex-direction: column;
-                gap: 20px;
-                padding: 25px 20px;
+                gap: 15px;
             }
             
             .nav-btn {
@@ -627,19 +471,8 @@
             }
             
             .slide-number {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
                 top: 10px;
                 right: 10px;
-            }
-            
-            .highlight-box {
-                padding: 20px;
-            }
-            
-            .chart-container {
-                padding: 20px;
             }
         }
 
@@ -649,80 +482,137 @@
             }
             
             .slide-title {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
             
-            .chart-wrapper {
-                height: 180px;
+            .chart-container {
+                padding: 15px;
             }
             
-            .chart-bars {
-                left: 40px;
-                gap: 10px;
+            .svg-chart {
+                height: 160px;
             }
             
-            .chart-bar-label {
-                font-size: 0.9rem;
-                bottom: -30px;
+            .bar-value {
+                font-size: 10px;
             }
             
-            .chart-bar-value {
-                font-size: 1rem;
-                top: -25px;
-            }
-            
-            .matrix-grid {
-                gap: 8px;
-            }
-            
-            .matrix-cell {
-                padding: 12px 5px;
-                font-size: 1rem;
+            .bar-label {
+                font-size: 9px;
             }
         }
 
-        /* Progress Bar */
+        @media (max-width: 375px) {
+            .svg-chart {
+                height: 150px;
+            }
+            
+            .chart-title {
+                font-size: 1rem;
+            }
+            
+            .cta-button {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .keypoint-list {
+            margin: 20px 0 20px 30px;
+        }
+
+        .keypoint-list li {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            position: relative;
+            font-size: clamp(1rem, 1.5vw, 1.1rem);
+        }
+
+        .keypoint-list li::before {
+            content: '▸';
+            color: var(--primary-rose);
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, var(--primary-rose), var(--accent-magenta));
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+        }
+
+        .data-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--primary-light);
+            background: var(--surface-white);
+            transition: var(--transition-quick);
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+        }
+
+        .data-table tr:nth-child(even) td {
+            background: var(--bg-pastel);
+        }
+
+        .data-table tr:hover td {
+            background: var(--primary-light);
+        }
+
         .progress-container {
             width: 100%;
-            height: 8px;
-            background: var(--pink-light);
-            border-radius: 4px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
             overflow: hidden;
             margin-top: 15px;
         }
 
         .progress-bar {
             height: 100%;
-            background: var(--gradient-pink);
+            background: linear-gradient(90deg, white, rgba(255, 255, 255, 0.8));
             width: 0%;
             transition: width 0.5s ease;
-            border-radius: 4px;
+            border-radius: 3px;
         }
 
-        /* Tooltip */
         .tooltip {
             position: relative;
             display: inline-block;
             cursor: help;
-            border-bottom: 1px dotted var(--primary-pink);
+            border-bottom: 1px dotted var(--primary-rose);
         }
 
         .tooltip .tooltiptext {
             visibility: hidden;
-            width: 200px;
-            background: var(--gray-dark);
-            color: var(--white);
+            width: 180px;
+            background: var(--contrast-charcoal);
+            color: white;
             text-align: center;
-            padding: 10px;
-            border-radius: 6px;
+            padding: 8px;
+            border-radius: var(--radius-sm);
             position: absolute;
             z-index: 100;
             bottom: 125%;
             left: 50%;
-            margin-left: -100px;
+            margin-left: -90px;
             opacity: 0;
             transition: opacity 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            box-shadow: var(--shadow-elevated);
         }
 
         .tooltip:hover .tooltiptext {
@@ -758,9 +648,31 @@
             </div>
         </div>
 
+        <!-- SVG Definitions (Gradients) -->
+        <svg class="svg-defs">
+            <defs>
+                <linearGradient id="barGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ff7eb3" stop-opacity="0.9" />
+                    <stop offset="100%" stop-color="#d63384" stop-opacity="0.9" />
+                </linearGradient>
+                <linearGradient id="barGradientHover" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ff9bc7" stop-opacity="1" />
+                    <stop offset="100%" stop-color="#e83e8c" stop-opacity="1" />
+                </linearGradient>
+                <linearGradient id="comparisonGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ff7eb3" stop-opacity="0.9" />
+                    <stop offset="100%" stop-color="#ff4d94" stop-opacity="0.9" />
+                </linearGradient>
+                <linearGradient id="comparisonGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#4fd1c7" stop-opacity="0.9" />
+                    <stop offset="100%" stop-color="#38a169" stop-opacity="0.9" />
+                </linearGradient>
+            </defs>
+        </svg>
+
         <!-- Slides -->
         <div class="slides-wrapper">
-            <!-- Slide 1 -->
+            <!-- Slide 1 - Energy Distribution -->
             <div class="slide active" id="slide1">
                 <div class="slide-number">1</div>
                 <h2 class="slide-title">The Energy Challenge</h2>
@@ -773,70 +685,103 @@
                     </div>
                     
                     <div class="chart-container">
-                        <h3 class="chart-title">Energy Distribution Analysis</h3>
-                        <div class="chart-wrapper">
-                            <div class="chart-axis">
-                                <div>100%</div>
-                                <div>75%</div>
-                                <div>50%</div>
-                                <div>25%</div>
-                                <div>0%</div>
-                            </div>
-                            <div class="chart-bars">
-                                <div class="chart-bar" style="height: 70%;">
-                                    <div class="chart-bar-value">40%</div>
-                                    <div class="chart-bar-label">HVAC</div>
-                                </div>
-                                <div class="chart-bar" style="height: 50%;">
-                                    <div class="chart-bar-value">25%</div>
-                                    <div class="chart-bar-label">Lighting</div>
-                                </div>
-                                <div class="chart-bar" style="height: 30%;">
-                                    <div class="chart-bar-value">15%</div>
-                                    <div class="chart-bar-label">Equipment</div>
-                                </div>
-                                <div class="chart-bar" style="height: 20%;">
-                                    <div class="chart-bar-value">10%</div>
-                                    <div class="chart-bar-label">Other</div>
-                                </div>
-                            </div>
-                            <div class="chart-x-axis">Energy Consumption Categories</div>
-                        </div>
+                        <h3 class="chart-title"><i class="fas fa-chart-bar"></i> Energy Distribution Analysis</h3>
+                        
+                        <!-- SVG Chart 1: Energy Distribution -->
+                        <svg class="svg-chart" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet">
+                            <!-- Grid Lines -->
+                            <g class="chart-grid">
+                                <line x1="60" y1="50" x2="60" y2="200" class="chart-axis" />
+                                <line x1="60" y1="200" x2="360" y2="200" class="chart-axis" />
+                                
+                                <!-- Horizontal grid lines -->
+                                <line x1="60" y1="50" x2="360" y2="50" stroke-dasharray="3,3" />
+                                <line x1="60" y1="87.5" x2="360" y2="87.5" stroke-dasharray="3,3" />
+                                <line x1="60" y1="125" x2="360" y2="125" stroke-dasharray="3,3" />
+                                <line x1="60" y1="162.5" x2="360" y2="162.5" stroke-dasharray="3,3" />
+                            </g>
+                            
+                            <!-- Y-axis labels -->
+                            <text x="40" y="50" class="axis-label">100%</text>
+                            <text x="40" y="87.5" class="axis-label">75%</text>
+                            <text x="40" y="125" class="axis-label">50%</text>
+                            <text x="40" y="162.5" class="axis-label">25%</text>
+                            <text x="40" y="200" class="axis-label">0%</text>
+                            
+                            <!-- Bars -->
+                            <g class="bars-group">
+                                <!-- HVAC -->
+                                <rect class="chart-bar" x="90" y="80" width="40" height="120" data-value="40%">
+                                    <animate attributeName="height" from="0" to="120" dur="0.8s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="80" dur="0.8s" fill="freeze" />
+                                </rect>
+                                <text x="110" y="70" class="bar-value">40%</text>
+                                <text x="110" y="215" class="bar-label">HVAC</text>
+                                
+                                <!-- Lighting -->
+                                <rect class="chart-bar" x="150" y="110" width="40" height="90" data-value="25%">
+                                    <animate attributeName="height" from="0" to="90" dur="0.8s" begin="0.1s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="110" dur="0.8s" begin="0.1s" fill="freeze" />
+                                </rect>
+                                <text x="170" y="100" class="bar-value">25%</text>
+                                <text x="170" y="215" class="bar-label">Lighting</text>
+                                
+                                <!-- Equipment -->
+                                <rect class="chart-bar" x="210" y="140" width="40" height="60" data-value="15%">
+                                    <animate attributeName="height" from="0" to="60" dur="0.8s" begin="0.2s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="140" dur="0.8s" begin="0.2s" fill="freeze" />
+                                </rect>
+                                <text x="230" y="130" class="bar-value">15%</text>
+                                <text x="230" y="215" class="bar-label">Equipment</text>
+                                
+                                <!-- Other -->
+                                <rect class="chart-bar" x="270" y="160" width="40" height="40" data-value="10%">
+                                    <animate attributeName="height" from="0" to="40" dur="0.8s" begin="0.3s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="160" dur="0.8s" begin="0.3s" fill="freeze" />
+                                </rect>
+                                <text x="290" y="150" class="bar-value">10%</text>
+                                <text x="290" y="215" class="bar-label">Other</text>
+                            </g>
+                            
+                            <!-- Axis titles -->
+                            <text x="200" y="240" class="axis-title">Energy Consumption Categories</text>
+                            <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Percentage (%)</text>
+                        </svg>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 2 -->
+            <!-- Slide 2 - Mathematical Framework -->
             <div class="slide" id="slide2">
                 <div class="slide-number">2</div>
                 <h2 class="slide-title">Mathematical Framework</h2>
                 <div class="slide-content">
                     <p>We model building zones as interconnected nodes in a matrix system, capturing thermal dynamics through linear algebra.</p>
                     
-                    <div class="matrix-display">
+                    <div class="highlight-box">
                         <h3><i class="fas fa-project-diagram"></i> Energy Transfer Matrix</h3>
                         <p>E[i][j] represents energy proportion transferred from zone i to zone j</p>
                         
-                        <div class="matrix-grid">
-                            <div class="matrix-cell">0.80</div>
-                            <div class="matrix-cell">0.10</div>
-                            <div class="matrix-cell">0.05</div>
-                            <div class="matrix-cell">0.05</div>
-                            <div class="matrix-cell">0.70</div>
-                            <div class="matrix-cell">0.15</div>
-                            <div class="matrix-cell">0.02</div>
-                            <div class="matrix-cell">0.08</div>
-                            <div class="matrix-cell">0.90</div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; max-width: 300px; margin: 20px auto;">
+                            <div class="matrix-cell" style="background: linear-gradient(135deg, var(--primary-rose), var(--accent-magenta)); color: white; padding: 20px; border-radius: var(--radius-md); text-align: center; font-weight: bold; font-size: 1.2rem;">0.80</div>
+                            <div class="matrix-cell" style="background: var(--bg-pastel); padding: 20px; border-radius: var(--radius-md); text-align: center; font-weight: bold; color: var(--accent-magenta);">0.10</div>
+                            <div class="matrix-cell" style="background: var(--bg-pastel); padding: 20px; border-radius: var(--radius-md); text-align: center; font-weight: bold; color: var(--accent-magenta);">0.05</div>
+                            <div class="matrix-cell" style="background: var(--bg-pastel); padding: 20px; border-radius: var(--radius-md); text-align: center; font-weight: bold; color: var(--accent-magenta);">0.05</div>
+                            <div class="matrix-cell" style="background: linear-gradient(135deg, var(--primary-rose), var(--accent-magenta)); color: white; padding: 20px; border-radius: var(--radius-md); text-align: center; font-weight: bold; font-size: 1.2rem;">0.70</div>
+                            <div class="matrix-cell" style="background: var(--bg-pastel); padding: 20px; border-radius: var(--radius-md); text-align: center; font-weight: bold; color: var(--accent-magenta);">0.15</div>
+                            <div class="matrix-cell" style="background: var(--bg-pastel); padding: 20px; border-radius: var(--radius-md); text-align: center; font-weight: bold; color: var(--accent-magenta);">0.02</div>
+                            <div class="matrix-cell" style="background: var(--bg-pastel); padding: 20px; border-radius: var(--radius-md); text-align: center; font-weight: bold; color: var(--accent-magenta);">0.08</div>
+                            <div class="matrix-cell" style="background: linear-gradient(135deg, var(--primary-rose), var(--accent-magenta)); color: white; padding: 20px; border-radius: var(--radius-md); text-align: center; font-weight: bold; font-size: 1.2rem;">0.90</div>
                         </div>
                         
-                        <p style="text-align: center; margin-top: 20px; color: var(--gray);">
+                        <p style="text-align: center; margin-top: 15px; color: var(--contrast-light);">
                             <i class="fas fa-info-circle"></i> Diagonal values show energy retention in each zone
                         </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 3 -->
+            <!-- Slide 3 - Optimization Model -->
             <div class="slide" id="slide3">
                 <div class="slide-number">3</div>
                 <h2 class="slide-title">Optimization Model</h2>
@@ -850,36 +795,65 @@
                     </div>
                     
                     <div class="chart-container">
-                        <h3 class="chart-title">Zone Energy Constraints</h3>
-                        <div class="chart-wrapper">
-                            <div class="chart-axis">
-                                <div>120</div>
-                                <div>90</div>
-                                <div>60</div>
-                                <div>30</div>
-                                <div>0</div>
-                            </div>
-                            <div class="chart-bars">
-                                <div class="chart-bar" style="height: 83%; background: linear-gradient(to top, #ff5e8e, #ff1493);">
-                                    <div class="chart-bar-value">100</div>
-                                    <div class="chart-bar-label">Zone 1</div>
-                                </div>
-                                <div class="chart-bar" style="height: 67%; background: linear-gradient(to top, #ff8e5e, #ff6b42);">
-                                    <div class="chart-bar-value">80</div>
-                                    <div class="chart-bar-label">Zone 2</div>
-                                </div>
-                                <div class="chart-bar" style="height: 50%; background: linear-gradient(to top, #5e8eff, #4287ff);">
-                                    <div class="chart-bar-value">60</div>
-                                    <div class="chart-bar-label">Zone 3</div>
-                                </div>
-                            </div>
-                            <div class="chart-x-axis">Maximum Allowable Energy (kWh)</div>
-                        </div>
+                        <h3 class="chart-title"><i class="fas fa-sliders-h"></i> Zone Energy Constraints</h3>
+                        
+                        <!-- SVG Chart 2: Zone Constraints -->
+                        <svg class="svg-chart" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet">
+                            <!-- Grid Lines -->
+                            <g class="chart-grid">
+                                <line x1="60" y1="50" x2="60" y2="200" class="chart-axis" />
+                                <line x1="60" y1="200" x2="360" y2="200" class="chart-axis" />
+                                
+                                <!-- Horizontal grid lines -->
+                                <line x1="60" y1="50" x2="360" y2="50" stroke-dasharray="3,3" />
+                                <line x1="60" y1="87.5" x2="360" y2="87.5" stroke-dasharray="3,3" />
+                                <line x1="60" y1="125" x2="360" y2="125" stroke-dasharray="3,3" />
+                                <line x1="60" y1="162.5" x2="360" y2="162.5" stroke-dasharray="3,3" />
+                            </g>
+                            
+                            <!-- Y-axis labels -->
+                            <text x="40" y="50" class="axis-label">120</text>
+                            <text x="40" y="87.5" class="axis-label">90</text>
+                            <text x="40" y="125" class="axis-label">60</text>
+                            <text x="40" y="162.5" class="axis-label">30</text>
+                            <text x="40" y="200" class="axis-label">0</text>
+                            
+                            <!-- Bars -->
+                            <g class="bars-group">
+                                <!-- Zone 1 -->
+                                <rect class="chart-bar" x="100" y="67" width="50" height="133" fill="url(#comparisonGradient1)" data-value="100">
+                                    <animate attributeName="height" from="0" to="133" dur="0.8s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="67" dur="0.8s" fill="freeze" />
+                                </rect>
+                                <text x="125" y="57" class="bar-value">100</text>
+                                <text x="125" y="215" class="bar-label">Zone 1</text>
+                                
+                                <!-- Zone 2 -->
+                                <rect class="chart-bar" x="175" y="100" width="50" height="100" fill="url(#comparisonGradient1)" data-value="80">
+                                    <animate attributeName="height" from="0" to="100" dur="0.8s" begin="0.1s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="100" dur="0.8s" begin="0.1s" fill="freeze" />
+                                </rect>
+                                <text x="200" y="90" class="bar-value">80</text>
+                                <text x="200" y="215" class="bar-label">Zone 2</text>
+                                
+                                <!-- Zone 3 -->
+                                <rect class="chart-bar" x="250" y="133" width="50" height="67" fill="url(#comparisonGradient1)" data-value="60">
+                                    <animate attributeName="height" from="0" to="67" dur="0.8s" begin="0.2s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="133" dur="0.8s" begin="0.2s" fill="freeze" />
+                                </rect>
+                                <text x="275" y="123" class="bar-value">60</text>
+                                <text x="275" y="215" class="bar-label">Zone 3</text>
+                            </g>
+                            
+                            <!-- Axis titles -->
+                            <text x="210" y="240" class="axis-title">Building Zones</text>
+                            <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Max Energy (kWh)</text>
+                        </svg>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 4 -->
+            <!-- Slide 4 - Eigenvalue Analysis -->
             <div class="slide" id="slide4">
                 <div class="slide-number">4</div>
                 <h2 class="slide-title">Eigenvalue Analysis</h2>
@@ -893,32 +867,57 @@
                     </div>
                     
                     <div class="chart-container">
-                        <h3 class="chart-title">Steady-State Convergence</h3>
-                        <div class="chart-wrapper">
-                            <div class="chart-axis">
-                                <div>100%</div>
-                                <div>75%</div>
-                                <div>50%</div>
-                                <div>25%</div>
-                                <div>0%</div>
-                            </div>
-                            <div class="chart-bars">
-                                <div class="chart-bar" style="height: 65%; background: linear-gradient(to top, #ff5e8e, #ff1493);">
-                                    <div class="chart-bar-value">65%</div>
-                                    <div class="chart-bar-label">Current</div>
-                                </div>
-                                <div class="chart-bar" style="height: 45%; background: linear-gradient(to top, #2ecc71, #27ae60);">
-                                    <div class="chart-bar-value">45%</div>
-                                    <div class="chart-bar-label">Optimized</div>
-                                </div>
-                            </div>
-                            <div class="chart-x-axis">Office Space Energy Usage</div>
-                        </div>
+                        <h3 class="chart-title"><i class="fas fa-balance-scale"></i> Steady-State Convergence</h3>
+                        
+                        <!-- SVG Chart 3: Comparison -->
+                        <svg class="svg-chart" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet">
+                            <!-- Grid Lines -->
+                            <g class="chart-grid">
+                                <line x1="60" y1="50" x2="60" y2="200" class="chart-axis" />
+                                <line x1="60" y1="200" x2="360" y2="200" class="chart-axis" />
+                                
+                                <!-- Horizontal grid lines -->
+                                <line x1="60" y1="50" x2="360" y2="50" stroke-dasharray="3,3" />
+                                <line x1="60" y1="87.5" x2="360" y2="87.5" stroke-dasharray="3,3" />
+                                <line x1="60" y1="125" x2="360" y2="125" stroke-dasharray="3,3" />
+                                <line x1="60" y1="162.5" x2="360" y2="162.5" stroke-dasharray="3,3" />
+                            </g>
+                            
+                            <!-- Y-axis labels -->
+                            <text x="40" y="50" class="axis-label">100%</text>
+                            <text x="40" y="87.5" class="axis-label">75%</text>
+                            <text x="40" y="125" class="axis-label">50%</text>
+                            <text x="40" y="162.5" class="axis-label">25%</text>
+                            <text x="40" y="200" class="axis-label">0%</text>
+                            
+                            <!-- Bars -->
+                            <g class="bars-group">
+                                <!-- Current -->
+                                <rect class="chart-bar" x="120" y="80" width="60" height="120" fill="url(#comparisonGradient1)" data-value="65%">
+                                    <animate attributeName="height" from="0" to="120" dur="0.8s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="80" dur="0.8s" fill="freeze" />
+                                </rect>
+                                <text x="150" y="70" class="bar-value">65%</text>
+                                <text x="150" y="215" class="bar-label">Current</text>
+                                
+                                <!-- Optimized -->
+                                <rect class="chart-bar" x="220" y="110" width="60" height="90" fill="url(#comparisonGradient2)" data-value="45%">
+                                    <animate attributeName="height" from="0" to="90" dur="0.8s" begin="0.2s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="110" dur="0.8s" begin="0.2s" fill="freeze" />
+                                </rect>
+                                <text x="250" y="100" class="bar-value">45%</text>
+                                <text x="250" y="215" class="bar-label">Optimized</text>
+                            </g>
+                            
+                            <!-- Axis titles -->
+                            <text x="210" y="240" class="axis-title">Office Space Energy Usage</text>
+                            <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Percentage (%)</text>
+                        </svg>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 5 -->
+            <!-- Slide 5 - Simulation Results -->
             <div class="slide" id="slide5">
                 <div class="slide-number">5</div>
                 <h2 class="slide-title">Simulation Results</h2>
@@ -926,28 +925,58 @@
                     <p>Matrix-based optimization delivers measurable impact:</p>
                     
                     <div class="chart-container">
-                        <h3 class="chart-title">Monthly Energy Reduction</h3>
-                        <div class="chart-wrapper">
-                            <div class="chart-axis">
-                                <div>250k</div>
-                                <div>200k</div>
-                                <div>150k</div>
-                                <div>100k</div>
-                                <div>50k</div>
-                                <div>0k</div>
-                            </div>
-                            <div class="chart-bars">
-                                <div class="chart-bar" style="height: 100%; background: linear-gradient(to top, #ff5e8e, #ff1493);">
-                                    <div class="chart-bar-value">250k</div>
-                                    <div class="chart-bar-label">Before</div>
-                                </div>
-                                <div class="chart-bar" style="height: 72%; background: linear-gradient(to top, #2ecc71, #27ae60);">
-                                    <div class="chart-bar-value">179k</div>
-                                    <div class="chart-bar-label">After</div>
-                                </div>
-                            </div>
-                            <div class="chart-x-axis">Energy Consumption (kWh)</div>
-                        </div>
+                        <h3 class="chart-title"><i class="fas fa-chart-pie"></i> Monthly Energy Reduction</h3>
+                        
+                        <!-- SVG Chart 4: Before/After Comparison -->
+                        <svg class="svg-chart" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet">
+                            <!-- Grid Lines -->
+                            <g class="chart-grid">
+                                <line x1="60" y1="50" x2="60" y2="200" class="chart-axis" />
+                                <line x1="60" y1="200" x2="360" y2="200" class="chart-axis" />
+                                
+                                <!-- Horizontal grid lines -->
+                                <line x1="60" y1="50" x2="360" y2="50" stroke-dasharray="3,3" />
+                                <line x1="60" y1="87.5" x2="360" y2="87.5" stroke-dasharray="3,3" />
+                                <line x1="60" y1="125" x2="360" y2="125" stroke-dasharray="3,3" />
+                                <line x1="60" y1="162.5" x2="360" y2="162.5" stroke-dasharray="3,3" />
+                            </g>
+                            
+                            <!-- Y-axis labels -->
+                            <text x="40" y="50" class="axis-label">250k</text>
+                            <text x="40" y="87.5" class="axis-label">200k</text>
+                            <text x="40" y="125" class="axis-label">150k</text>
+                            <text x="40" y="162.5" class="axis-label">100k</text>
+                            <text x="40" y="200" class="axis-label">0k</text>
+                            
+                            <!-- Bars -->
+                            <g class="bars-group">
+                                <!-- Before -->
+                                <rect class="chart-bar" x="120" y="50" width="60" height="150" fill="url(#comparisonGradient1)" data-value="250k">
+                                    <animate attributeName="height" from="0" to="150" dur="0.8s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="50" dur="0.8s" fill="freeze" />
+                                </rect>
+                                <text x="150" y="40" class="bar-value">250k</text>
+                                <text x="150" y="215" class="bar-label">Before</text>
+                                
+                                <!-- After -->
+                                <rect class="chart-bar" x="220" y="92" width="60" height="108" fill="url(#comparisonGradient2)" data-value="179k">
+                                    <animate attributeName="height" from="0" to="108" dur="0.8s" begin="0.2s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="92" dur="0.8s" begin="0.2s" fill="freeze" />
+                                </rect>
+                                <text x="250" y="82" class="bar-value">179k</text>
+                                <text x="250" y="215" class="bar-label">After</text>
+                            </g>
+                            
+                            <!-- Axis titles -->
+                            <text x="210" y="240" class="axis-title">Energy Consumption (kWh)</text>
+                            <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Monthly Usage</text>
+                            
+                            <!-- Reduction line -->
+                            <line x1="150" y1="50" x2="250" y2="92" stroke="#9c2258" stroke-width="2" stroke-dasharray="5,5">
+                                <animate attributeName="stroke-dashoffset" from="20" to="0" dur="1s" begin="1s" fill="freeze" />
+                            </line>
+                            <text x="200" y="40" class="bar-value" fill="#9c2258">-28.5%</text>
+                        </svg>
                     </div>
                     
                     <div class="cta-section">
@@ -955,14 +984,14 @@
                             <h3 class="cta-title"><i class="fas fa-trophy"></i> 28.5% Reduction Achieved!</h3>
                             <p>Our matrix optimization model successfully reduced energy consumption by 28.5% while maintaining comfort levels.</p>
                             <a href="#slide6" class="cta-button" onclick="goToSlide(6)">
-                                <i class="fas fa-chart-pie"></i> View Detailed Analysis
+                                <i class="fas fa-chart-line"></i> View Detailed Analysis
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 6 -->
+            <!-- Slide 6 - Financial Impact -->
             <div class="slide" id="slide6">
                 <div class="slide-number">6</div>
                 <h2 class="slide-title">Financial Impact</h2>
@@ -1013,7 +1042,7 @@
                 </div>
             </div>
 
-            <!-- Slide 7 -->
+            <!-- Slide 7 - Scalability -->
             <div class="slide" id="slide7">
                 <div class="slide-number">7</div>
                 <h2 class="slide-title">Scalability & Applications</h2>
@@ -1021,46 +1050,65 @@
                     <p>The matrix approach scales efficiently for complex systems:</p>
                     
                     <div class="chart-container">
-                        <h3 class="chart-title">Application Scope</h3>
-                        <div class="chart-wrapper">
-                            <div class="chart-axis">
-                                <div>100%</div>
-                                <div>75%</div>
-                                <div>50%</div>
-                                <div>25%</div>
-                                <div>0%</div>
-                            </div>
-                            <div class="chart-bars">
-                                <div class="chart-bar" style="height: 85%; background: linear-gradient(to top, #ff5e8e, #ff1493);">
-                                    <div class="chart-bar-value">85%</div>
-                                    <div class="chart-bar-label">Campus</div>
-                                </div>
-                                <div class="chart-bar" style="height: 90%; background: linear-gradient(to top, #ff8e5e, #ff6b42);">
-                                    <div class="chart-bar-value">90%</div>
-                                    <div class="chart-bar-label">Industry</div>
-                                </div>
-                                <div class="chart-bar" style="height: 95%; background: linear-gradient(to top, #5e8eff, #4287ff);">
-                                    <div class="chart-bar-value">95%</div>
-                                    <div class="chart-bar-label">Smart City</div>
-                                </div>
-                            </div>
-                            <div class="chart-x-axis">Scalability Potential</div>
-                        </div>
-                    </div>
-                    
-                    <div class="highlight-box">
-                        <h3><i class="fas fa-expand-alt"></i> Extended Applications</h3>
-                        <ul class="keypoint-list">
-                            <li><strong>Campus Networks:</strong> 15×15 matrix optimization</li>
-                            <li><strong>Industrial Complexes:</strong> Process heat recovery</li>
-                            <li><strong>Smart Cities:</strong> District-level energy management</li>
-                            <li><strong>Renewable Integration:</strong> Solar/wind complementarity</li>
-                        </ul>
+                        <h3 class="chart-title"><i class="fas fa-expand-alt"></i> Application Scope</h3>
+                        
+                        <!-- SVG Chart 5: Scalability -->
+                        <svg class="svg-chart" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet">
+                            <!-- Grid Lines -->
+                            <g class="chart-grid">
+                                <line x1="60" y1="50" x2="60" y2="200" class="chart-axis" />
+                                <line x1="60" y1="200" x2="360" y2="200" class="chart-axis" />
+                                
+                                <!-- Horizontal grid lines -->
+                                <line x1="60" y1="50" x2="360" y2="50" stroke-dasharray="3,3" />
+                                <line x1="60" y1="87.5" x2="360" y2="87.5" stroke-dasharray="3,3" />
+                                <line x1="60" y1="125" x2="360" y2="125" stroke-dasharray="3,3" />
+                                <line x1="60" y1="162.5" x2="360" y2="162.5" stroke-dasharray="3,3" />
+                            </g>
+                            
+                            <!-- Y-axis labels -->
+                            <text x="40" y="50" class="axis-label">100%</text>
+                            <text x="40" y="87.5" class="axis-label">75%</text>
+                            <text x="40" y="125" class="axis-label">50%</text>
+                            <text x="40" y="162.5" class="axis-label">25%</text>
+                            <text x="40" y="200" class="axis-label">0%</text>
+                            
+                            <!-- Bars -->
+                            <g class="bars-group">
+                                <!-- Campus -->
+                                <rect class="chart-bar" x="90" y="67" width="40" height="133" data-value="85%">
+                                    <animate attributeName="height" from="0" to="133" dur="0.8s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="67" dur="0.8s" fill="freeze" />
+                                </rect>
+                                <text x="110" y="57" class="bar-value">85%</text>
+                                <text x="110" y="215" class="bar-label">Campus</text>
+                                
+                                <!-- Industry -->
+                                <rect class="chart-bar" x="160" y="55" width="40" height="145" data-value="90%">
+                                    <animate attributeName="height" from="0" to="145" dur="0.8s" begin="0.1s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="55" dur="0.8s" begin="0.1s" fill="freeze" />
+                                </rect>
+                                <text x="180" y="45" class="bar-value">90%</text>
+                                <text x="180" y="215" class="bar-label">Industry</text>
+                                
+                                <!-- Smart City -->
+                                <rect class="chart-bar" x="230" y="50" width="40" height="150" data-value="95%">
+                                    <animate attributeName="height" from="0" to="150" dur="0.8s" begin="0.2s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="50" dur="0.8s" begin="0.2s" fill="freeze" />
+                                </rect>
+                                <text x="250" y="40" class="bar-value">95%</text>
+                                <text x="250" y="215" class="bar-label">Smart City</text>
+                            </g>
+                            
+                            <!-- Axis titles -->
+                            <text x="210" y="240" class="axis-title">System Types</text>
+                            <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Scalability Potential</text>
+                        </svg>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 8 -->
+            <!-- Slide 8 - Methodology -->
             <div class="slide" id="slide8">
                 <div class="slide-number">8</div>
                 <h2 class="slide-title">Methodology & Process</h2>
@@ -1090,7 +1138,7 @@
                 </div>
             </div>
 
-            <!-- Slide 9 -->
+            <!-- Slide 9 - Future Enhancements -->
             <div class="slide" id="slide9">
                 <div class="slide-number">9</div>
                 <h2 class="slide-title">Future Enhancements</h2>
@@ -1098,40 +1146,66 @@
                     <p>Next-generation improvements and extensions:</p>
                     
                     <div class="chart-container">
-                        <h3 class="chart-title">Enhancement Roadmap</h3>
-                        <div class="chart-wrapper">
-                            <div class="chart-axis">
-                                <div>2024</div>
-                                <div>2025</div>
-                                <div>2026</div>
-                                <div>2027</div>
-                                <div>2028</div>
-                            </div>
-                            <div class="chart-bars">
-                                <div class="chart-bar" style="height: 40%; background: linear-gradient(to top, #ff5e8e, #ff1493);">
-                                    <div class="chart-bar-value">AI</div>
-                                    <div class="chart-bar-label">Integration</div>
-                                </div>
-                                <div class="chart-bar" style="height: 65%; background: linear-gradient(to top, #ff8e5e, #ff6b42);">
-                                    <div class="chart-bar-value">Real-time</div>
-                                    <div class="chart-bar-label">Analytics</div>
-                                </div>
-                                <div class="chart-bar" style="height: 85%; background: linear-gradient(to top, #5e8eff, #4287ff);">
-                                    <div class="chart-bar-value">Blockchain</div>
-                                    <div class="chart-bar-label">Trading</div>
-                                </div>
-                                <div class="chart-bar" style="height: 100%; background: linear-gradient(to top, #2ecc71, #27ae60);">
-                                    <div class="chart-bar-value">Smart</div>
-                                    <div class="chart-bar-label">Grid</div>
-                                </div>
-                            </div>
-                            <div class="chart-x-axis">Development Timeline</div>
-                        </div>
+                        <h3 class="chart-title"><i class="fas fa-road"></i> Enhancement Roadmap</h3>
+                        
+                        <!-- SVG Chart 6: Timeline -->
+                        <svg class="svg-chart" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet">
+                            <!-- Grid Lines -->
+                            <g class="chart-grid">
+                                <line x1="60" y1="50" x2="60" y2="200" class="chart-axis" />
+                                <line x1="60" y1="200" x2="360" y2="200" class="chart-axis" />
+                            </g>
+                            
+                            <!-- X-axis labels -->
+                            <text x="100" y="220" class="axis-label">2024</text>
+                            <text x="160" y="220" class="axis-label">2025</text>
+                            <text x="220" y="220" class="axis-label">2026</text>
+                            <text x="280" y="220" class="axis-label">2027</text>
+                            
+                            <!-- Bars -->
+                            <g class="bars-group">
+                                <!-- AI Integration -->
+                                <rect class="chart-bar" x="80" y="120" width="40" height="80" data-value="AI">
+                                    <animate attributeName="height" from="0" to="80" dur="0.8s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="120" dur="0.8s" fill="freeze" />
+                                </rect>
+                                <text x="100" y="110" class="bar-value">AI</text>
+                                <text x="100" y="215" class="bar-label">2024</text>
+                                
+                                <!-- Real-time Analytics -->
+                                <rect class="chart-bar" x="140" y="80" width="40" height="120" data-value="Real-time">
+                                    <animate attributeName="height" from="0" to="120" dur="0.8s" begin="0.2s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="80" dur="0.8s" begin="0.2s" fill="freeze" />
+                                </rect>
+                                <text x="160" y="70" class="bar-value">Real-time</text>
+                                <text x="160" y="215" class="bar-label">2025</text>
+                                
+                                <!-- Blockchain Trading -->
+                                <rect class="chart-bar" x="200" y="40" width="40" height="160" data-value="Blockchain">
+                                    <animate attributeName="height" from="0" to="160" dur="0.8s" begin="0.4s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="40" dur="0.8s" begin="0.4s" fill="freeze" />
+                                </rect>
+                                <text x="220" y="30" class="bar-value">Blockchain</text>
+                                <text x="220" y="215" class="bar-label">2026</text>
+                                
+                                <!-- Smart Grid -->
+                                <rect class="chart-bar" x="260" y="50" width="40" height="150" fill="url(#comparisonGradient2)" data-value="Smart Grid">
+                                    <animate attributeName="height" from="0" to="150" dur="0.8s" begin="0.6s" fill="freeze" />
+                                    <animate attributeName="y" from="200" to="50" dur="0.8s" begin="0.6s" fill="freeze" />
+                                </rect>
+                                <text x="280" y="40" class="bar-value">Smart Grid</text>
+                                <text x="280" y="215" class="bar-label">2027</text>
+                            </g>
+                            
+                            <!-- Axis titles -->
+                            <text x="210" y="240" class="axis-title">Development Timeline</text>
+                            <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Investment Priority</text>
+                        </svg>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 10 -->
+            <!-- Slide 10 - Conclusion -->
             <div class="slide" id="slide10">
                 <div class="slide-number">10</div>
                 <h2 class="slide-title">Conclusion & Impact</h2>
@@ -1152,7 +1226,7 @@
                         <div class="cta-content">
                             <h3 class="cta-title"><i class="fas fa-graduation-cap"></i> Presentation Complete</h3>
                             <p>Thank you for your attention! This demonstrates the power of matrix algebra in solving real-world energy challenges.</p>
-                            <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+                            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px; flex-wrap: wrap;">
                                 <a href="#slide1" class="cta-button" onclick="goToSlide(1)">
                                     <i class="fas fa-redo"></i> Restart Presentation
                                 </a>
@@ -1160,7 +1234,7 @@
                         </div>
                     </div>
                     
-                    <div style="text-align: center; margin-top: 30px; color: var(--gray);">
+                    <div style="text-align: center; margin-top: 30px; color: var(--contrast-light);">
                         <p><strong>Hari L | Registration: 21225080015</strong></p>
                         <p>SH2201 - Calculus and Matrix Algebra Capstone Project</p>
                     </div>
@@ -1185,7 +1259,7 @@
     </div>
 
     <script>
-        // Slide Management
+        // ===== SLIDE MANAGEMENT =====
         let currentSlide = 1;
         const totalSlides = 10;
         
@@ -1261,57 +1335,129 @@
             progressBar.style.width = `${progress}%`;
         }
         
+        // ===== SVG CHART ANIMATIONS =====
         function animateCharts() {
-            const bars = document.querySelectorAll('.chart-bar');
-            bars.forEach(bar => {
-                const originalHeight = bar.style.height;
-                bar.style.height = '0%';
-                
-                setTimeout(() => {
-                    bar.style.height = originalHeight;
-                }, 300);
+            // Reset and animate SVG elements in current slide
+            const currentSlideElement = document.getElementById(`slide${currentSlide}`);
+            const svgCharts = currentSlideElement.querySelectorAll('.svg-chart');
+            
+            svgCharts.forEach((svg, index) => {
+                // Reset animations
+                const animatedElements = svg.querySelectorAll('[animate]');
+                animatedElements.forEach(el => {
+                    el.setAttribute('animate', 'none');
+                    void el.offsetWidth; // Trigger reflow
+                    el.removeAttribute('animate');
+                    
+                    // Re-add animation with delay based on element order
+                    setTimeout(() => {
+                        const height = el.getAttribute('height');
+                        const y = el.getAttribute('y');
+                        
+                        el.setAttribute('height', '0');
+                        el.setAttribute('y', '200');
+                        
+                        setTimeout(() => {
+                            el.setAttribute('height', height);
+                            el.setAttribute('y', y);
+                        }, 100);
+                    }, index * 100);
+                });
             });
         }
         
-        // Initialize with animation
-        window.addEventListener('DOMContentLoaded', function() {
-            animateCharts();
-            updateUI();
-            
-            // Auto-advance for demonstration
-            setInterval(() => {
-                if (currentSlide < totalSlides) {
-                    showNextSlide();
-                }
-            }, 45000);
-        });
-        
-        // Touch Swipe Support
+        // ===== TOUCH SWIPE SUPPORT =====
         let touchStartX = 0;
         let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
         
         document.addEventListener('touchstart', e => {
             touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
         });
         
         document.addEventListener('touchend', e => {
             touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
             handleSwipe();
         });
         
         function handleSwipe() {
             const swipeThreshold = 50;
+            const verticalThreshold = 30;
             
-            if (touchEndX < touchStartX - swipeThreshold) {
-                showNextSlide();
-            }
+            // Calculate distances
+            const horizontalDiff = touchEndX - touchStartX;
+            const verticalDiff = Math.abs(touchEndY - touchStartY);
             
-            if (touchEndX > touchStartX + swipeThreshold) {
-                showPrevSlide();
+            // Only process horizontal swipes with minimal vertical movement
+            if (verticalDiff < verticalThreshold) {
+                if (horizontalDiff < -swipeThreshold) {
+                    showNextSlide();
+                } else if (horizontalDiff > swipeThreshold) {
+                    showPrevSlide();
+                }
             }
         }
         
-        // Smooth scrolling for CTA buttons
+        // ===== INITIALIZATION =====
+        window.addEventListener('DOMContentLoaded', function() {
+            // Initial chart animation
+            setTimeout(() => {
+                animateCharts();
+            }, 300);
+            
+            updateUI();
+            
+            // Auto-advance for demonstration (disabled for user control)
+            // setInterval(() => {
+            //     if (currentSlide < totalSlides) {
+            //         showNextSlide();
+            //     }
+            // }, 45000);
+        });
+        
+        // ===== RESPONSIVE SVG ADJUSTMENTS =====
+        function adjustSVGsForMobile() {
+            const svgCharts = document.querySelectorAll('.svg-chart');
+            const isMobile = window.innerWidth < 768;
+            
+            svgCharts.forEach(svg => {
+                if (isMobile) {
+                    // Adjust viewBox for better mobile display
+                    svg.setAttribute('viewBox', '0 0 300 200');
+                    
+                    // Adjust font sizes
+                    const texts = svg.querySelectorAll('text');
+                    texts.forEach(text => {
+                        const currentSize = parseInt(text.getAttribute('font-size') || '12');
+                        text.setAttribute('font-size', Math.max(8, currentSize - 2));
+                    });
+                } else {
+                    // Reset to original
+                    svg.setAttribute('viewBox', '0 0 400 250');
+                    
+                    const texts = svg.querySelectorAll('text');
+                    texts.forEach(text => {
+                        const className = text.getAttribute('class');
+                        if (className === 'bar-value') {
+                            text.setAttribute('font-size', '12');
+                        } else if (className === 'bar-label') {
+                            text.setAttribute('font-size', '11');
+                        }
+                    });
+                }
+            });
+        }
+        
+        // Listen for window resize
+        window.addEventListener('resize', adjustSVGsForMobile);
+        
+        // Initial adjustment
+        setTimeout(adjustSVGsForMobile, 100);
+        
+        // ===== SMOOTH SCROLLING FOR CTA BUTTONS =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1321,6 +1467,37 @@
                     goToSlide(targetSlide);
                 }
             });
+        });
+        
+        // ===== BAR HOVER EFFECTS =====
+        document.addEventListener('mouseover', function(e) {
+            if (e.target.classList.contains('chart-bar')) {
+                const bar = e.target;
+                const value = bar.getAttribute('data-value');
+                
+                // Create tooltip effect
+                const rect = bar.getBoundingClientRect();
+                const tooltip = document.createElement('div');
+                tooltip.className = 'chart-tooltip';
+                tooltip.textContent = value;
+                tooltip.style.position = 'fixed';
+                tooltip.style.background = 'var(--contrast-charcoal)';
+                tooltip.style.color = 'white';
+                tooltip.style.padding = '6px 10px';
+                tooltip.style.borderRadius = '4px';
+                tooltip.style.fontSize = '12px';
+                tooltip.style.zIndex = '1000';
+                tooltip.style.left = rect.left + rect.width/2 + 'px';
+                tooltip.style.top = rect.top - 30 + 'px';
+                tooltip.style.transform = 'translateX(-50%)';
+                
+                document.body.appendChild(tooltip);
+                
+                // Remove tooltip on mouseout
+                bar.addEventListener('mouseout', function() {
+                    tooltip.remove();
+                }, { once: true });
+            }
         });
     </script>
 </body>
