@@ -517,6 +517,71 @@
             }
         }
 
+        /* ===== PRINT MODE (PDF EXPORT) ===== */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .presentation-container {
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0;
+                max-width: none;
+            }
+
+            .slide {
+                display: block !important;
+                page-break-after: always;
+                break-after: page;
+                min-height: auto !important;
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .slide:last-child {
+                page-break-after: auto;
+            }
+
+            .navigation,
+            .nav-btn,
+            .slide-number,
+            .progress-container,
+            .progress-bar {
+                display: none !important;
+            }
+
+            .header {
+                page-break-after: always;
+            }
+
+            .cta-button,
+            .nav-btn {
+                pointer-events: none;
+                text-decoration: none;
+                color: var(--accent-magenta) !important;
+            }
+
+            .chart-container {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .svg-chart {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            a[href]::after {
+                content: " (" attr(href) ")";
+                font-size: 0.8em;
+                font-weight: normal;
+                color: var(--contrast-light);
+            }
+        }
+
         /* ===== UTILITY CLASSES ===== */
         .keypoint-list {
             margin: 20px 0 20px 30px;
@@ -747,6 +812,13 @@
                             <text x="200" y="240" class="axis-title">Energy Consumption Categories</text>
                             <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Percentage (%)</text>
                         </svg>
+                        
+                        <p style="margin-top: 25px; font-size: 0.9rem; color: var(--contrast-light); text-align: center; padding-top: 15px; border-top: 1px dashed var(--primary-light);">
+                            <i class="fas fa-external-link-alt"></i> Interactive Demo: 
+                            <a href="https://defaulte-r.github.io/CalculusAndMatrixAlgebra/" target="_blank" style="color: var(--accent-magenta); text-decoration: none; font-weight: 500;">
+                                https://defaulte-r.github.io/CalculusAndMatrixAlgebra/
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -778,6 +850,13 @@
                             <i class="fas fa-info-circle"></i> Diagonal values show energy retention in each zone
                         </p>
                     </div>
+                    
+                    <p style="margin-top: 25px; font-size: 0.9rem; color: var(--contrast-light); text-align: center; padding-top: 15px; border-top: 1px dashed var(--primary-light);">
+                        <i class="fas fa-external-link-alt"></i> Interactive Demo: 
+                        <a href="https://defaulte-r.github.io/CalculusAndMatrixAlgebra/" target="_blank" style="color: var(--accent-magenta); text-decoration: none; font-weight: 500;">
+                            https://defaulte-r.github.io/CalculusAndMatrixAlgebra/
+                        </a>
+                    </p>
                 </div>
             </div>
 
@@ -849,6 +928,13 @@
                             <text x="210" y="240" class="axis-title">Building Zones</text>
                             <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Max Energy (kWh)</text>
                         </svg>
+                        
+                        <p style="margin-top: 25px; font-size: 0.9rem; color: var(--contrast-light); text-align: center; padding-top: 15px; border-top: 1px dashed var(--primary-light);">
+                            <i class="fas fa-external-link-alt"></i> Interactive Demo: 
+                            <a href="https://defaulte-r.github.io/CalculusAndMatrixAlgebra/" target="_blank" style="color: var(--accent-magenta); text-decoration: none; font-weight: 500;">
+                                https://defaulte-r.github.io/CalculusAndMatrixAlgebra/
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -913,6 +999,13 @@
                             <text x="210" y="240" class="axis-title">Office Space Energy Usage</text>
                             <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Percentage (%)</text>
                         </svg>
+                        
+                        <p style="margin-top: 25px; font-size: 0.9rem; color: var(--contrast-light); text-align: center; padding-top: 15px; border-top: 1px dashed var(--primary-light);">
+                            <i class="fas fa-external-link-alt"></i> Interactive Demo: 
+                            <a href="https://defaulte-r.github.io/CalculusAndMatrixAlgebra/" target="_blank" style="color: var(--accent-magenta); text-decoration: none; font-weight: 500;">
+                                https://defaulte-r.github.io/CalculusAndMatrixAlgebra/
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -977,6 +1070,13 @@
                             </line>
                             <text x="200" y="40" class="bar-value" fill="#9c2258">-28.5%</text>
                         </svg>
+                        
+                        <p style="margin-top: 25px; font-size: 0.9rem; color: var(--contrast-light); text-align: center; padding-top: 15px; border-top: 1px dashed var(--primary-light);">
+                            <i class="fas fa-external-link-alt"></i> Interactive Demo: 
+                            <a href="https://defaulte-r.github.io/CalculusAndMatrixAlgebra/" target="_blank" style="color: var(--accent-magenta); text-decoration: none; font-weight: 500;">
+                                https://defaulte-r.github.io/CalculusAndMatrixAlgebra/
+                            </a>
+                        </p>
                     </div>
                     
                     <div class="cta-section">
@@ -1039,6 +1139,13 @@
                             <li><strong>Carbon Offset:</strong> 2,556 tons CO₂</li>
                         </ul>
                     </div>
+                    
+                    <p style="margin-top: 25px; font-size: 0.9rem; color: var(--contrast-light); text-align: center; padding-top: 15px; border-top: 1px dashed var(--primary-light);">
+                        <i class="fas fa-external-link-alt"></i> Interactive Demo: 
+                        <a href="https://defaulte-r.github.io/CalculusAndMatrixAlgebra/" target="_blank" style="color: var(--accent-magenta); text-decoration: none; font-weight: 500;">
+                            https://defaulte-r.github.io/CalculusAndMatrixAlgebra/
+                        </a>
+                    </p>
                 </div>
             </div>
 
@@ -1104,6 +1211,13 @@
                             <text x="210" y="240" class="axis-title">System Types</text>
                             <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Scalability Potential</text>
                         </svg>
+                        
+                        <p style="margin-top: 25px; font-size: 0.9rem; color: var(--contrast-light); text-align: center; padding-top: 15px; border-top: 1px dashed var(--primary-light);">
+                            <i class="fas fa-external-link-alt"></i> Interactive Demo: 
+                            <a href="https://defaulte-r.github.io/CalculusAndMatrixAlgebra/" target="_blank" style="color: var(--accent-magenta); text-decoration: none; font-weight: 500;">
+                                https://defaulte-r.github.io/CalculusAndMatrixAlgebra/
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1125,6 +1239,13 @@
                             <li><strong>Implementation:</strong> Deploy optimized energy schedules</li>
                         </ol>
                     </div>
+                    
+                    <p style="margin-top: 25px; font-size: 0.9rem; color: var(--contrast-light); text-align: center; padding-top: 15px; border-top: 1px dashed var(--primary-light);">
+                        <i class="fas fa-external-link-alt"></i> Interactive Demo: 
+                        <a href="https://defaulte-r.github.io/CalculusAndMatrixAlgebra/" target="_blank" style="color: var(--accent-magenta); text-decoration: none; font-weight: 500;">
+                            https://defaulte-r.github.io/CalculusAndMatrixAlgebra/
+                        </a>
+                    </p>
                     
                     <div class="cta-section">
                         <div class="cta-content">
@@ -1201,6 +1322,13 @@
                             <text x="210" y="240" class="axis-title">Development Timeline</text>
                             <text x="20" y="125" class="axis-title" transform="rotate(-90,20,125)">Investment Priority</text>
                         </svg>
+                        
+                        <p style="margin-top: 25px; font-size: 0.9rem; color: var(--contrast-light); text-align: center; padding-top: 15px; border-top: 1px dashed var(--primary-light);">
+                            <i class="fas fa-external-link-alt"></i> Interactive Demo: 
+                            <a href="https://defaulte-r.github.io/CalculusAndMatrixAlgebra/" target="_blank" style="color: var(--accent-magenta); text-decoration: none; font-weight: 500;">
+                                https://defaulte-r.github.io/CalculusAndMatrixAlgebra/
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1238,6 +1366,13 @@
                         <p><strong>Hari L | Registration: 21225080015</strong></p>
                         <p>SH2201 - Calculus and Matrix Algebra Capstone Project</p>
                     </div>
+                    
+                    <p style="margin-top: 25px; font-size: 0.9rem; color: var(--contrast-light); text-align: center; padding-top: 15px; border-top: 1px dashed var(--primary-light);">
+                        <i class="fas fa-external-link-alt"></i> Interactive Demo: 
+                        <a href="https://defaulte-r.github.io/CalculusAndMatrixAlgebra/" target="_blank" style="color: var(--accent-magenta); text-decoration: none; font-weight: 500;">
+                            https://defaulte-r.github.io/CalculusAndMatrixAlgebra/
+                        </a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -1410,7 +1545,7 @@
             
             updateUI();
             
-            // Auto-advance for demonstration (disabled for user control)
+            // Auto-advance for demonstration (disabled for PDF export)
             // setInterval(() => {
             //     if (currentSlide < totalSlides) {
             //         showNextSlide();
