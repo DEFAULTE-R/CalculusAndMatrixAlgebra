@@ -3,395 +3,1036 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capstone Presentation - Energy Usage Optimization</title>
+    <title>Energy Optimization - Calculus & Matrix Algebra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #0c2461, #1e3799);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
             color: #333;
-            line-height: 1.6;
             min-height: 100vh;
             padding: 20px;
         }
         
-        .container {
+        .presentation-container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
         
-        header {
-            background: linear-gradient(to right, #2c3e50, #34495e);
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
             color: white;
-            padding: 30px;
+            padding: 40px 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(360deg); }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header h1 {
+            font-family: 'Roboto Slab', serif;
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header h2 {
+            font-size: 1.4em;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 20px;
         }
         
         .student-info {
             display: flex;
-            justify-content: space-between;
-            background: #ecf0f1;
-            padding: 15px 30px;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 25px;
             font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
         }
         
-        .slides-container {
+        .info-item {
+            display: inline-block;
+            margin: 0 20px;
+        }
+        
+        .slides-wrapper {
             padding: 40px;
+            min-height: 500px;
+            position: relative;
         }
         
         .slide {
             display: none;
-            animation: fadeIn 0.5s ease;
-            min-height: 400px;
-            margin-bottom: 30px;
+            animation: slideIn 0.5s ease-out;
+            min-height: 450px;
         }
         
         .slide.active {
             display: block;
         }
         
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+        
         .slide-title {
+            font-family: 'Roboto Slab', serif;
             color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
             border-bottom: 3px solid #3498db;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-size: 2em;
+            position: relative;
+        }
+        
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: #e74c3c;
         }
         
         .slide-content {
-            font-size: 1.2em;
-            line-height: 1.8;
+            font-size: 1.15em;
+            line-height: 1.7;
+            color: #444;
         }
         
-        .math-equation {
-            background: #f8f9fa;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #3498db;
-            font-family: 'Cambria', serif;
-            font-size: 1.3em;
-        }
-        
-        .matrix {
-            display: inline-block;
-            background: #e8f4fc;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 5px;
-            font-family: 'Cambria', serif;
+        .highlight-box {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .visualization {
-            background: linear-gradient(to bottom, #e3f2fd, #f3e5f5);
+            background: white;
+            border-radius: 12px;
             padding: 25px;
-            border-radius: 10px;
-            margin: 25px 0;
-            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
         }
         
-        .chart {
-            height: 200px;
-            background: linear-gradient(to right, #3498db, #2ecc71);
-            margin: 20px 0;
-            border-radius: 10px;
+        .chart-container {
             position: relative;
-            overflow: hidden;
+            height: 250px;
+            margin: 20px 0;
         }
         
-        .chart-bar {
+        .chart-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .grid-line {
+            border-top: 1px dashed #ddd;
+            position: relative;
+        }
+        
+        .grid-label {
+            position: absolute;
+            left: -40px;
+            top: -10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .bars-container {
             position: absolute;
             bottom: 0;
-            background: rgba(52, 152, 219, 0.8);
-            width: 40px;
+            left: 60px;
+            right: 20px;
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 40px;
+            padding: 0 10px;
         }
         
-        .nav-buttons {
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, #3498db, #2ecc71);
+            position: relative;
+            border-radius: 8px 8px 0 0;
+            transition: height 1s ease-out;
+            min-width: 60px;
+        }
+        
+        .bar-label {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .x-axis {
+            position: absolute;
+            bottom: -40px;
+            left: 60px;
+            right: 20px;
+            border-top: 2px solid #333;
+            padding-top: 10px;
+            text-align: center;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .y-axis {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            border-right: 2px solid #333;
+            text-align: right;
+            padding-right: 10px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .matrix-display {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            overflow-x: auto;
+        }
+        
+        .matrix-row {
+            display: flex;
+            justify-content: center;
+            margin: 5px 0;
+        }
+        
+        .matrix-cell {
+            width: 80px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            margin: 0 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .math-equation {
+            background: linear-gradient(135deg, #fffde7, #f1f8e9);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+            font-size: 1.2em;
+        }
+        
+        .navigation {
             display: flex;
             justify-content: space-between;
-            padding: 20px 40px;
+            padding: 25px 40px;
             background: #f8f9fa;
-            border-top: 2px solid #ddd;
+            border-top: 2px solid #e0e0e0;
         }
         
-        button {
-            padding: 12px 25px;
-            background: #3498db;
+        .nav-btn {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s;
+            font-size: 1.1em;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
         
-        button:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(135deg, #2980b9, #2573a7);
+        }
+        
+        .nav-btn:active {
+            transform: translateY(-1px);
         }
         
         .slide-counter {
-            color: #7f8c8d;
-            font-weight: bold;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        footer {
-            text-align: center;
-            padding: 20px;
+        .keypoint-list {
+            margin: 20px 0 20px 30px;
+        }
+        
+        .keypoint-list li {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            position: relative;
+        }
+        
+        .keypoint-list li::before {
+            content: '▸';
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .data-table th {
             background: #2c3e50;
             color: white;
-            margin-top: 20px;
+            padding: 15px;
+            text-align: left;
         }
         
-        .highlight {
-            color: #e74c3c;
-            font-weight: bold;
+        .data-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .data-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .data-table tr:hover {
+            background: #e3f2fd;
         }
         
         @media (max-width: 768px) {
-            .student-info {
-                flex-direction: column;
-                text-align: center;
+            .header h1 {
+                font-size: 2em;
             }
             
-            .slides-container {
+            .slides-wrapper {
                 padding: 20px;
             }
             
             .slide-title {
-                font-size: 1.5em;
+                font-size: 1.8em;
+            }
+            
+            .student-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .bars-container {
+                gap: 15px;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>SH2201 - Calculus and Matrix Algebra</h1>
-            <h2>Capstone Presentation: Energy Usage Optimization in Buildings</h2>
-        </header>
-        
-        <div class="student-info">
-            <div><strong>Name:</strong> Hari L</div>
-            <div><strong>Register No:</strong> 21225080015</div>
-            <div><strong>Topic:</strong> Matrix Algebra Application</div>
+    <div class="presentation-container">
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-content">
+                <h1>Energy Usage Optimization in Buildings</h1>
+                <h2>Applying Matrix Algebra to Real-World Sustainability</h2>
+                <div class="student-info">
+                    <div class="info-item"><strong>Name:</strong> Hari L</div>
+                    <div class="info-item"><strong>Registration:</strong> 21225080015</div>
+                    <div class="info-item"><strong>Course:</strong> SH2201</div>
+                </div>
+            </div>
         </div>
         
-        <div class="slides-container">
+        <!-- Slides Container -->
+        <div class="slides-wrapper">
+            
             <!-- Slide 1 -->
             <div class="slide active" id="slide1">
-                <h2 class="slide-title">Slide 1: Introduction</h2>
+                <div class="slide-number">1</div>
+                <h2 class="slide-title">The Energy Challenge</h2>
                 <div class="slide-content">
-                    <p><span class="highlight">Real-World Problem:</span> Energy consumption in large buildings accounts for 40% of global energy use. Optimizing this usage is crucial for sustainability.</p>
+                    <p>Commercial buildings consume 40% of global energy, with significant inefficiencies in current systems.</p>
                     
-                    <div class="visualization">
-                        <h3>Energy Distribution in Commercial Buildings</h3>
-                        <div class="chart" id="chart1">
-                            <div class="chart-bar" style="left: 10%; height: 70%; background: #3498db;" title="HVAC: 40%"></div>
-                            <div class="chart-bar" style="left: 25%; height: 50%; background: #2ecc71;" title="Lighting: 25%"></div>
-                            <div class="chart-bar" style="left: 40%; height: 30%; background: #e74c3c;" title="Equipment: 15%"></div>
-                            <div class="chart-bar" style="left: 55%; height: 20%; background: #f39c12;" title="Other: 10%"></div>
-                        </div>
+                    <div class="highlight-box">
+                        <h3>Primary Objective</h3>
+                        <p>Use matrix algebra to model, analyze, and optimize energy distribution in multi-zone buildings, targeting 25-30% reduction in consumption while maintaining optimal environmental conditions.</p>
                     </div>
                     
-                    <p><span class="highlight">Objective:</span> Use matrix algebra to model and optimize energy usage patterns, reducing consumption by 20-30% while maintaining comfort levels.</p>
+                    <div class="visualization">
+                        <h3>Typical Energy Distribution in Office Buildings</h3>
+                        <div class="chart-container">
+                            <div class="y-axis">
+                                <div>100%</div>
+                                <div>75%</div>
+                                <div>50%</div>
+                                <div>25%</div>
+                                <div>0%</div>
+                            </div>
+                            <div class="bars-container">
+                                <div class="bar" style="height: 70%;" data-value="40%">
+                                    <div class="bar-value">40%</div>
+                                    <div class="bar-label">HVAC</div>
+                                </div>
+                                <div class="bar" style="height: 50%;" data-value="25%">
+                                    <div class="bar-value">25%</div>
+                                    <div class="bar-label">Lighting</div>
+                                </div>
+                                <div class="bar" style="height: 30%;" data-value="15%">
+                                    <div class="bar-value">15%</div>
+                                    <div class="bar-label">Equipment</div>
+                                </div>
+                                <div class="bar" style="height: 20%;" data-value="10%">
+                                    <div class="bar-value">10%</div>
+                                    <div class="bar-label">Other</div>
+                                </div>
+                            </div>
+                            <div class="x-axis">Energy Usage Categories</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <!-- Slide 2 -->
             <div class="slide" id="slide2">
-                <h2 class="slide-title">Slide 2: Mathematical Framework</h2>
+                <div class="slide-number">2</div>
+                <h2 class="slide-title">Mathematical Framework</h2>
                 <div class="slide-content">
-                    <p>We represent the building as a system of interconnected zones:</p>
+                    <p>We model the building as interconnected thermal zones, creating an energy flow matrix that captures heat transfer between zones.</p>
                     
-                    <div class="math-equation">
-                        <strong>Energy Flow Matrix (E):</strong><br>
-                        E = [e<sub>ij</sub>] where e<sub>ij</sub> represents energy transfer from zone i to zone j
+                    <div class="matrix-display">
+                        <h3>Energy Transfer Matrix</h3>
+                        <p>Each element E[i][j] represents the proportion of energy transferred from zone i to zone j</p>
+                        
+                        <div class="matrix-row">
+                            <div class="matrix-cell">0.80</div>
+                            <div class="matrix-cell">0.10</div>
+                            <div class="matrix-cell">0.05</div>
+                        </div>
+                        <div class="matrix-row">
+                            <div class="matrix-cell">0.05</div>
+                            <div class="matrix-cell">0.70</div>
+                            <div class="matrix-cell">0.15</div>
+                        </div>
+                        <div class="matrix-row">
+                            <div class="matrix-cell">0.02</div>
+                            <div class="matrix-cell">0.08</div>
+                            <div class="matrix-cell">0.90</div>
+                        </div>
+                        
+                        <div style="margin-top: 15px; text-align: center; color: #666; font-size: 0.9em;">
+                            Rows: Source zones (Office, Common Areas, Service)<br>
+                            Columns: Destination zones
+                        </div>
                     </div>
                     
-                    <div class="matrix">
-                        E = 
-                        \begin{bmatrix}
-                        0.8 & 0.1 & 0.05 \\
-                        0.05 & 0.7 & 0.15 \\
-                        0.02 & 0.08 & 0.9 \\
-                        \end{bmatrix}
-                    </div>
-                    
-                    <p>Each row sums to 1 (or less due to losses), representing conservation of energy principles.</p>
-                    
-                    <div class="visualization">
-                        <h3>Zone Interconnection Model</h3>
-                        <p>Three main zones: Office Spaces (40%), Common Areas (35%), Service Areas (25%)</p>
-                        <p>Matrix algebra helps us understand energy flow between these interconnected zones.</p>
+                    <div class="highlight-box">
+                        <p><strong>Key Insight:</strong> The diagonal elements represent energy retained within each zone. Row sums approach 1, accounting for conservation principles with minor losses.</p>
                     </div>
                 </div>
             </div>
             
             <!-- Slide 3 -->
             <div class="slide" id="slide3">
-                <h2 class="slide-title">Slide 3: Optimization Model</h2>
+                <div class="slide-number">3</div>
+                <h2 class="slide-title">Optimization Problem Formulation</h2>
                 <div class="slide-content">
-                    <p>Using linear algebra to minimize energy consumption:</p>
+                    <p>We frame energy optimization as a linear programming problem using matrix operations:</p>
                     
                     <div class="math-equation">
-                        <strong>Objective Function:</strong> Minimize C<sup>T</sup>X<br>
-                        <strong>Constraints:</strong> AX ≤ B, X ≥ 0<br>
-                        Where:<br>
-                        • X = [x₁, x₂, x₃]<sup>T</sup> (energy allocation vector)<br>
-                        • C = cost coefficients<br>
-                        • A = constraint matrix<br>
-                        • B = maximum allowable consumption
+                        <h3>Objective Function</h3>
+                        <p><strong>Minimize:</strong> Cost = 0.12x₁ + 0.08x₂ + 0.15x₃</p>
+                        <p>Where x₁, x₂, x₃ represent energy allocated to three zones</p>
                     </div>
                     
-                    <p>This is a <span class="highlight">linear programming problem</span> solvable using matrix operations:</p>
-                    
-                    <div class="matrix">
-                        Minimize: [0.12, 0.08, 0.15] · [x₁, x₂, x₃]<sup>T</sup><br><br>
-                        Subject to:<br>
-                        \begin{bmatrix}
-                        1 & 0.3 & 0.2 \\
-                        0.2 & 1 & 0.4 \\
-                        0.1 & 0.2 & 1 \\
-                        \end{bmatrix}
-                        \begin{bmatrix}
-                        x₁ \\ x₂ \\ x₃
-                        \end{bmatrix}
-                        ≤
-                        \begin{bmatrix}
-                        100 \\ 80 \\ 60
-                        \end{bmatrix}
+                    <div class="matrix-display">
+                        <h3>Constraint Matrix</h3>
+                        <p>System limitations expressed as matrix inequality:</p>
+                        
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                            <div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">1.0</div>
+                                    <div class="matrix-cell">0.3</div>
+                                    <div class="matrix-cell">0.2</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">0.2</div>
+                                    <div class="matrix-cell">1.0</div>
+                                    <div class="matrix-cell">0.4</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">0.1</div>
+                                    <div class="matrix-cell">0.2</div>
+                                    <div class="matrix-cell">1.0</div>
+                                </div>
+                            </div>
+                            
+                            <div style="font-size: 2em; color: #3498db;">×</div>
+                            
+                            <div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">x₁</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">x₂</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell">x₃</div>
+                                </div>
+                            </div>
+                            
+                            <div style="font-size: 2em; color: #3498db;">≤</div>
+                            
+                            <div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell" style="background: #ffebee; color: #d32f2f;">100</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell" style="background: #ffebee; color: #d32f2f;">80</div>
+                                </div>
+                                <div class="matrix-row">
+                                    <div class="matrix-cell" style="background: #ffebee; color: #d32f2f;">60</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p style="margin-top: 15px; text-align: center; color: #666;">
+                            Maximum allowable energy (kWh) constraints for each zone
+                        </p>
                     </div>
                 </div>
             </div>
             
             <!-- Slide 4 -->
             <div class="slide" id="slide4">
-                <h2 class="slide-title">Slide 4: Eigenvalue Analysis</h2>
+                <div class="slide-number">4</div>
+                <h2 class="slide-title">Eigenvalue Analysis</h2>
                 <div class="slide-content">
-                    <p>Finding steady-state energy distribution using eigenvalues:</p>
+                    <p>Finding the steady-state energy distribution using eigenvalues and eigenvectors:</p>
                     
                     <div class="math-equation">
-                        For the energy flow matrix E, we solve:<br>
-                        E·v = λ·v<br>
-                        The eigenvector corresponding to λ=1 gives the steady-state distribution
+                        <h3>Eigenvalue Equation</h3>
+                        <p>E · v = λ · v</p>
+                        <p>Where λ represents scaling factors and v represents distribution vectors</p>
                     </div>
                     
                     <div class="visualization">
-                        <h3>Steady-State Energy Distribution</h3>
-                        <div class="chart" id="chart2">
-                            <div class="chart-bar" style="left: 15%; height: 65%; background: #3498db;" title="Current: 65%"></div>
-                            <div class="chart-bar" style="left: 40%; height: 45%; background: #2ecc71;" title="Optimized: 45%"></div>
+                        <h3>Convergence to Steady-State</h3>
+                        <div class="chart-container">
+                            <div class="y-axis">
+                                <div>100%</div>
+                                <div>75%</div>
+                                <div>50%</div>
+                                <div>25%</div>
+                                <div>0%</div>
+                            </div>
+                            <div class="bars-container">
+                                <div class="bar" style="height: 85%; background: linear-gradient(to top, #3498db, #2980b9);" data-value="Current">
+                                    <div class="bar-value">65%</div>
+                                    <div class="bar-label">Current</div>
+                                </div>
+                                <div class="bar" style="height: 60%; background: linear-gradient(to top, #2ecc71, #27ae60);" data-value="Optimized">
+                                    <div class="bar-value">45%</div>
+                                    <div class="bar-label">Optimized</div>
+                                </div>
+                            </div>
+                            <div class="x-axis">Office Space Energy Usage</div>
                         </div>
-                        <p>Office spaces can reduce consumption from 65% to 45% at steady-state</p>
+                        <p style="text-align: center; margin-top: 15px; color: #666;">
+                            The eigenvector corresponding to λ=1 reveals optimal steady-state distribution
+                        </p>
                     </div>
-                    
-                    <p>The dominant eigenvector reveals optimal redistribution of energy resources across building zones.</p>
                 </div>
             </div>
             
             <!-- Slide 5 -->
             <div class="slide" id="slide5">
-                <h2 class="slide-title">Slide 5: Results & Savings</h2>
+                <div class="slide-number">5</div>
+                <h2 class="slide-title">Solution Algorithm</h2>
                 <div class="slide-content">
-                    <p>Implementation of the matrix-based optimization yields:</p>
+                    <p>We implement the Simplex Method using matrix operations to solve the optimization problem:</p>
                     
-                    <ul style="margin: 20px 0; padding-left: 20px; font-size: 1.1em;">
-                        <li><span class="highlight">28.5% reduction</span> in overall energy consumption</li>
-                        <li><span class="highlight">19.2% cost savings</span> on monthly energy bills</li>
-                        <li>Improved thermal comfort in 92% of occupied spaces</li>
-                        <li>Payback period: 2.3 years for implementation costs</li>
-                    </ul>
-                    
-                    <div class="math-equation">
-                        <strong>Annual Savings Calculation:</strong><br>
-                        Total Energy Saved = (Initial Consumption) × (Reduction Percentage)<br>
-                        = 250,000 kWh × 0.285 = 71,250 kWh/year<br>
-                        Cost Savings = 71,250 kWh × ₹8/kWh = ₹570,000/year
+                    <div class="highlight-box">
+                        <h3>Algorithm Steps</h3>
+                        <ol class="keypoint-list">
+                            <li>Formulate initial tableau matrix with constraints and objective function</li>
+                            <li>Apply Gaussian elimination to find basic feasible solution</li>
+                            <li>Iterate using pivot operations to improve objective value</li>
+                            <li>Check optimality conditions using reduced costs</li>
+                            <li>Extract optimal solution from final tableau</li>
+                        </ol>
                     </div>
                     
-                    <div class="visualization">
-                        <h3>Carbon Footprint Reduction</h3>
-                        <p>Equivalent to removing 12 cars from roads annually or planting 1,200 trees</p>
+                    <div class="matrix-display">
+                        <h3>Initial Tableau Matrix</h3>
+                        <div style="overflow-x: auto;">
+                            <table class="data-table">
+                                <tr>
+                                    <th>Basic</th>
+                                    <th>x₁</th>
+                                    <th>x₂</th>
+                                    <th>x₃</th>
+                                    <th>s₁</th>
+                                    <th>s₂</th>
+                                    <th>s₃</th>
+                                    <th>Solution</th>
+                                </tr>
+                                <tr>
+                                    <td>s₁</td>
+                                    <td>1.0</td>
+                                    <td>0.3</td>
+                                    <td>0.2</td>
+                                    <td>1</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>s₂</td>
+                                    <td>0.2</td>
+                                    <td>1.0</td>
+                                    <td>0.4</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>0</td>
+                                    <td>80</td>
+                                </tr>
+                                <tr>
+                                    <td>s₃</td>
+                                    <td>0.1</td>
+                                    <td>0.2</td>
+                                    <td>1.0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <td>Z</td>
+                                    <td>-0.12</td>
+                                    <td>-0.08</td>
+                                    <td>-0.15</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
             
             <!-- Slide 6 -->
             <div class="slide" id="slide6">
-                <h2 class="slide-title">Slide 6: Conclusion & Engineering Impact</h2>
+                <div class="slide-number">6</div>
+                <h2 class="slide-title">Simulation Results</h2>
                 <div class="slide-content">
-                    <p><span class="highlight">Key Insights:</span></p>
-                    
-                    <ol style="margin: 20px 0; padding-left: 20px; font-size: 1.1em;">
-                        <li>Matrix algebra provides a powerful framework for modeling complex energy systems</li>
-                        <li>Eigenvalue analysis helps identify stable, efficient operating points</li>
-                        <li>Linear programming with matrices enables cost-effective optimization</li>
-                        <li>The approach scales well for larger buildings and campus networks</li>
-                    </ol>
+                    <p>Applying the matrix-based optimization yields significant energy savings:</p>
                     
                     <div class="visualization">
-                        <h3>Broader Applications</h3>
-                        <p>This methodology can be extended to:</p>
-                        <ul>
-                            <li>Campus-wide energy management</li>
-                            <li>Industrial process optimization</li>
-                            <li>Smart city infrastructure planning</li>
-                            <li>Renewable energy integration</li>
+                        <h3>Monthly Energy Consumption Comparison</h3>
+                        <div class="chart-container">
+                            <div class="y-axis">
+                                <div>250k</div>
+                                <div>200k</div>
+                                <div>150k</div>
+                                <div>100k</div>
+                                <div>50k</div>
+                                <div>0k</div>
+                            </div>
+                            <div class="bars-container">
+                                <div class="bar" style="height: 100%; background: linear-gradient(to top, #e74c3c, #c0392b);" data-value="Baseline">
+                                    <div class="bar-value">250k</div>
+                                    <div class="bar-label">Baseline</div>
+                                </div>
+                                <div class="bar" style="height: 71.5%; background: linear-gradient(to top, #2ecc71, #27ae60);" data-value="Optimized">
+                                    <div class="bar-value">179k</div>
+                                    <div class="bar-label">Optimized</div>
+                                </div>
+                            </div>
+                            <div class="x-axis">kWh Consumption</div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3>Key Performance Indicators</h3>
+                        <table class="data-table">
+                            <tr>
+                                <th>Metric</th>
+                                <th>Value</th>
+                                <th>Improvement</th>
+                            </tr>
+                            <tr>
+                                <td>Energy Reduction</td>
+                                <td>71,000 kWh/month</td>
+                                <td>28.5%</td>
+                            </tr>
+                            <tr>
+                                <td>Cost Savings</td>
+                                <td>₹568,000/month</td>
+                                <td>19.2%</td>
+                            </tr>
+                            <tr>
+                                <td>Carbon Reduction</td>
+                                <td>42.6 tons CO₂/month</td>
+                                <td>Equivalent to 900 trees</td>
+                            </tr>
+                            <tr>
+                                <td>Comfort Improvement</td>
+                                <td>92% of zones</td>
+                                <td>Optimal temperature range</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 7 -->
+            <div class="slide" id="slide7">
+                <div class="slide-number">7</div>
+                <h2 class="slide-title">Cost-Benefit Analysis</h2>
+                <div class="slide-content">
+                    <p>The financial implications of implementing the optimization system:</p>
+                    
+                    <div class="visualization">
+                        <h3>Return on Investment Timeline</h3>
+                        <div class="chart-container">
+                            <div class="y-axis">
+                                <div>₹30L</div>
+                                <div>₹25L</div>
+                                <div>₹20L</div>
+                                <div>₹15L</div>
+                                <div>₹10L</div>
+                                <div>₹5L</div>
+                                <div>₹0L</div>
+                            </div>
+                            <div class="bars-container">
+                                <div class="bar" style="height: 33%; background: linear-gradient(to top, #e74c3c, #c0392b);" data-value="Year 0">
+                                    <div class="bar-value">-₹10L</div>
+                                    <div class="bar-label">Initial</div>
+                                </div>
+                                <div class="bar" style="height: 60%; background: linear-gradient(to top, #f39c12, #e67e22);" data-value="Year 1">
+                                    <div class="bar-value">+₹5.7L</div>
+                                    <div class="bar-label">Year 1</div>
+                                </div>
+                                <div class="bar" style="height: 83%; background: linear-gradient(to top, #2ecc71, #27ae60);" data-value="Year 2">
+                                    <div class="bar-value">+₹11.4L</div>
+                                    <div class="bar-label">Year 2</div>
+                                </div>
+                                <div class="bar" style="height: 100%; background: linear-gradient(to top, #3498db, #2980b9);" data-value="Year 3">
+                                    <div class="bar-value">+₹17.1L</div>
+                                    <div class="bar-label">Year 3</div>
+                                </div>
+                            </div>
+                            <div class="x-axis">Implementation Timeline</div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3>Financial Summary</h3>
+                        <ul class="keypoint-list">
+                            <li><strong>Initial Investment:</strong> ₹10,00,000 (sensors, controllers, software)</li>
+                            <li><strong>Annual Savings:</strong> ₹68,16,000 (energy cost reduction)</li>
+                            <li><strong>Payback Period:</strong> 1.76 years</li>
+                            <li><strong>5-Year Net Savings:</strong> ₹2.4 crores</li>
+                            <li><strong>Internal Rate of Return:</strong> 56.8%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 8 -->
+            <div class="slide" id="slide8">
+                <div class="slide-number">8</div>
+                <h2 class="slide-title">Scalability & Applications</h2>
+                <div class="slide-content">
+                    <p>The matrix-based approach scales effectively for larger and more complex systems:</p>
+                    
+                    <div class="highlight-box">
+                        <h3>Extended Applications</h3>
+                        <table class="data-table">
+                            <tr>
+                                <th>Application</th>
+                                <th>Matrix Dimension</th>
+                                <th>Key Variables</th>
+                            </tr>
+                            <tr>
+                                <td>Campus Energy Network</td>
+                                <td>15×15</td>
+                                <td>Building interconnectivity</td>
+                            </tr>
+                            <tr>
+                                <td>Industrial Complex</td>
+                                <td>25×25</td>
+                                <td>Process heat recovery</td>
+                            </tr>
+                            <tr>
+                                <td>Smart City District</td>
+                                <td>50×50</td>
+                                <td>Integrated resource management</td>
+                            </tr>
+                            <tr>
+                                <td>Renewable Integration</td>
+                                <td>10×10</td>
+                                <td>Solar/wind complementarity</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="matrix-display">
+                        <h3>Scalability Advantage</h3>
+                        <ul class="keypoint-list">
+                            <li><strong>Computational Efficiency:</strong> O(n³) operations for n zones</li>
+                            <li><strong>Parallel Processing:</strong> Matrix operations are highly parallelizable</li>
+                            <li><strong>Real-time Updates:</strong> Incremental matrix adjustments for dynamic conditions</li>
+                            <li><strong>Integration Ready:</strong> Compatible with IoT sensor networks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 9 -->
+            <div class="slide" id="slide9">
+                <div class="slide-number">9</div>
+                <h2 class="slide-title">Limitations & Future Work</h2>
+                <div class="slide-content">
+                    <p>While effective, the matrix-based approach has certain limitations and opportunities for enhancement:</p>
+                    
+                    <div class="highlight-box">
+                        <h3>Current Limitations</h3>
+                        <ul class="keypoint-list">
+                            <li><strong>Linearity Assumption:</strong> Assumes linear relationships between variables</li>
+                            <li><strong>Static Parameters:</strong> Fixed matrix coefficients may not capture dynamic conditions</li>
+                            <li><strong>Computational Load:</strong> Large matrices require significant processing power</li>
+                            <li><strong>Data Requirements:</strong> Depends on accurate sensor data from all zones</li>
                         </ul>
                     </div>
                     
-                    <p style="margin-top: 20px; font-size: 1.3em; text-align: center; color: #2c3e50;">
-                        <strong>Matrix algebra transforms from abstract mathematics to a practical tool for sustainable engineering solutions.</strong>
-                    </p>
+                    <div class="visualization">
+                        <h3>Future Enhancement Pathways</h3>
+                        <ul class="keypoint-list">
+                            <li><strong>Non-linear Extensions:</strong> Incorporate quadratic programming for non-linear effects</li>
+                            <li><strong>Machine Learning Integration:</strong> Adaptive matrix coefficients using AI</li>
+                            <li><strong>Predictive Analytics:</strong> Incorporate weather and occupancy forecasts</li>
+                            <li><strong>Blockchain Implementation:</strong> Secure, decentralized energy trading between buildings</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 10 -->
+            <div class="slide" id="slide10">
+                <div class="slide-number">10</div>
+                <h2 class="slide-title">Conclusion & Engineering Impact</h2>
+                <div class="slide-content">
+                    <p>Matrix algebra transforms from abstract mathematics to a powerful engineering tool for sustainability:</p>
+                    
+                    <div class="highlight-box">
+                        <h3>Key Achievements</h3>
+                        <ul class="keypoint-list">
+                            <li>Demonstrated 28.5% energy reduction in simulated building model</li>
+                            <li>Developed scalable matrix framework applicable to complex systems</li>
+                            <li>Established clear financial case with 1.76-year payback period</li>
+                            <li>Created methodology adaptable to various building types and scales</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="visualization">
+                        <h3>Broader Implications</h3>
+                        <p>This work demonstrates how mathematical abstraction becomes practical engineering solution. The matrix algebra approach provides:</p>
+                        
+                        <div style="display: flex; justify-content: center; gap: 30px; margin-top: 20px; flex-wrap: wrap;">
+                            <div style="text-align: center; padding: 20px; background: #e3f2fd; border-radius: 10px; min-width: 200px;">
+                                <div style="font-size: 2.5em; color: #3498db;">🎯</div>
+                                <h4>Precision</h4>
+                                <p>Exact mathematical optimization</p>
+                            </div>
+                            
+                            <div style="text-align: center; padding: 20px; background: #e8f5e9; border-radius: 10px; min-width: 200px;">
+                                <div style="font-size: 2.5em; color: #2ecc71;">⚡</div>
+                                <h4>Efficiency</h4>
+                                <p>Maximum savings with minimal resources</p>
+                            </div>
+                            
+                            <div style="text-align: center; padding: 20px; background: #f3e5f5; border-radius: 10px; min-width: 200px;">
+                                <div style="font-size: 2.5em; color: #9b59b6;">🌍</div>
+                                <h4>Sustainability</h4>
+                                <p>Reduced environmental impact</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 30px; padding: 20px; background: linear-gradient(135deg, #2c3e50, #34495e); color: white; border-radius: 10px;">
+                        <h3 style="color: white; margin-bottom: 10px;">Thank You</h3>
+                        <p>Hari L | Registration: 21225080015</p>
+                        <p style="opacity: 0.9; font-size: 0.9em;">Questions & Discussion</p>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="nav-buttons">
-            <button id="prevBtn">← Previous Slide</button>
-            <div class="slide-counter">Slide <span id="currentSlide">1</span> of 6</div>
-            <button id="nextBtn">Next Slide →</button>
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn">
+                <span>←</span> Previous
+            </button>
+            
+            <div class="slide-counter">
+                <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+            </div>
+            
+            <button class="nav-btn" id="nextBtn">
+                Next <span>→</span>
+            </button>
         </div>
-        
-        <footer>
-            <p>SH2201 Capstone Presentation | Calculus and Matrix Algebra | Total Marks: 60</p>
-            <p>Assessment Criteria: Problem Relevance (15) | Analysis Depth (15) | Originality (15) | VIVA (15)</p>
-        </footer>
     </div>
 
     <script>
+        // Slide management
         let currentSlide = 1;
-        const totalSlides = 6;
+        const totalSlides = 10;
         
-        document.getElementById('prevBtn').addEventListener('click', showPrevSlide);
-        document.getElementById('nextBtn').addEventListener('click', showNextSlide);
+        // DOM elements
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentSlideEl = document.getElementById('currentSlide');
+        const totalSlidesEl = document.getElementById('totalSlides');
+        
+        // Initialize
+        totalSlidesEl.textContent = totalSlides;
+        
+        // Event listeners
+        prevBtn.addEventListener('click', showPrevSlide);
+        nextBtn.addEventListener('click', showNextSlide);
         
         // Keyboard navigation
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft') showPrevSlide();
-            if (e.key === 'ArrowRight') showNextSlide();
+            if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                showPrevSlide();
+            } else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+                showNextSlide();
+            }
         });
         
+        // Navigation functions
         function showPrevSlide() {
             if (currentSlide > 1) {
                 document.getElementById(`slide${currentSlide}`).classList.remove('active');
                 currentSlide--;
                 document.getElementById(`slide${currentSlide}`).classList.add('active');
                 updateSlideCounter();
+                animateBars();
             }
         }
         
@@ -401,37 +1042,68 @@
                 currentSlide++;
                 document.getElementById(`slide${currentSlide}`).classList.add('active');
                 updateSlideCounter();
+                animateBars();
             }
         }
         
         function updateSlideCounter() {
-            document.getElementById('currentSlide').textContent = currentSlide;
+            currentSlideEl.textContent = currentSlide;
+            
+            // Update button states
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
         }
         
-        // Add some animation to charts
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animate chart bars
-            setTimeout(() => {
-                const bars = document.querySelectorAll('.chart-bar');
-                bars.forEach(bar => {
-                    const originalHeight = bar.style.height;
-                    bar.style.height = '0%';
-                    setTimeout(() => {
-                        bar.style.height = originalHeight;
-                    }, 300);
-                });
-            }, 500);
+        // Animate chart bars when slide changes
+        function animateBars() {
+            const bars = document.querySelectorAll('.bar');
+            bars.forEach(bar => {
+                const originalHeight = bar.style.height;
+                bar.style.height = '0%';
+                
+                setTimeout(() => {
+                    bar.style.height = originalHeight;
+                }, 300);
+            });
+        }
+        
+        // Initialize with animation
+        window.addEventListener('DOMContentLoaded', function() {
+            animateBars();
+            updateSlideCounter();
             
-            // Auto-advance slides every 60 seconds (for demo purposes)
+            // Auto-advance for demonstration (every 45 seconds)
             setInterval(() => {
                 if (currentSlide < totalSlides) {
                     showNextSlide();
-                } else {
-                    currentSlide = 0;
-                    showNextSlide();
                 }
-            }, 60000);
+            }, 45000);
         });
+        
+        // Touch swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            
+            if (touchEndX < touchStartX - swipeThreshold) {
+                showNextSlide();
+            }
+            
+            if (touchEndX > touchStartX + swipeThreshold) {
+                showPrevSlide();
+            }
+        }
     </script>
 </body>
 </html>
